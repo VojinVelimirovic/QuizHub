@@ -1,0 +1,12 @@
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\bin\Debug\net8.0\QuizHub.Shared.deps.json
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\bin\Debug\net8.0\QuizHub.Shared.dll
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\bin\Debug\net8.0\QuizHub.Shared.pdb
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\obj\Debug\net8.0\QuizHub.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\obj\Debug\net8.0\QuizHub.Shared.AssemblyInfoInputs.cache
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\obj\Debug\net8.0\QuizHub.Shared.AssemblyInfo.cs
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\obj\Debug\net8.0\QuizHub.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\obj\Debug\net8.0\QuizHub.Shared.sourcelink.json
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\obj\Debug\net8.0\QuizHub.Shared.dll
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\obj\Debug\net8.0\refint\QuizHub.Shared.dll
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\obj\Debug\net8.0\QuizHub.Shared.pdb
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Shared\obj\Debug\net8.0\ref\QuizHub.Shared.dll

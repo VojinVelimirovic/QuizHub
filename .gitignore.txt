@@ -1,0 +1,19 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+
+# EF Migrations
+*.db
+*.mdf
+*.ldf
+
+# Node / frontend if any
+node_modules/
+dist/

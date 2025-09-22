@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "7wSGH4lQWQv99HTT128l5PGWFZVyF735neMLG+dAK0w=",
+  "Source": "QuizHub.Api",
+  "BasePath": "_content/QuizHub.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

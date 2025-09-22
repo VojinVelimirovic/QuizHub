@@ -1,0 +1,15 @@
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\bin\Debug\net8.0\QuizHub.Data.deps.json
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\bin\Debug\net8.0\QuizHub.Data.runtimeconfig.json
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\bin\Debug\net8.0\QuizHub.Data.dll
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\bin\Debug\net8.0\QuizHub.Data.pdb
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\obj\Debug\net8.0\QuizHub.Data.csproj.AssemblyReference.cache
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\obj\Debug\net8.0\QuizHub.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\obj\Debug\net8.0\QuizHub.Data.AssemblyInfoInputs.cache
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\obj\Debug\net8.0\QuizHub.Data.AssemblyInfo.cs
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\obj\Debug\net8.0\QuizHub.Data.csproj.CoreCompileInputs.cache
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\obj\Debug\net8.0\QuizHub.Data.sourcelink.json
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\obj\Debug\net8.0\QuizHub.Data.dll
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\obj\Debug\net8.0\refint\QuizHub.Data.dll
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\obj\Debug\net8.0\QuizHub.Data.pdb
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\obj\Debug\net8.0\QuizHub.Data.genruntimeconfig.cache
+C:\Users\Korisnik\Desktop\PUGS\QuizHub\QuizHub\QuizHub.Data\obj\Debug\net8.0\ref\QuizHub.Data.dll
