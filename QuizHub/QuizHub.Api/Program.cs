@@ -1,9 +1,12 @@
 using QuizHub.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using QuizHub.Api.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
