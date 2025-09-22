@@ -3,12 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}|QuizHub.Data\\QuizHub.Data.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.data\\context\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}|QuizHub.Data\\QuizHub.Data.csproj|solutionrelative:quizhub.data\\context\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\mapping\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\mapping\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\dtos\\users\\userresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\dtos\\users\\userresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\dtos\\users\\userloginservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\dtos\\users\\userloginservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\dtos\\users\\usercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\dtos\\users\\usercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +46,123 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Data\\Context\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "QuizHub.Data\\Context\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Data\\Context\\AppDbContext.cs",
-              "RelativeToolTip": "QuizHub.Data\\Context\\AppDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T10:53:32.32Z",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "QuizHub.Api\\appsettings.json",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\appsettings.json",
+              "RelativeToolTip": "QuizHub.Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-22T12:14:45.825Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "QuizHub.Api\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAYwBsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T12:22:34.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Implementations\\UserService.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\Implementations\\UserService.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Implementations\\UserService.cs",
+              "RelativeToolTip": "QuizHub.Services\\Implementations\\UserService.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAgwAkAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T12:03:02.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AutoMapperProfile.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
+              "RelativeToolTip": "QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T12:12:37.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Program.cs",
               "RelativeDocumentMoniker": "QuizHub.Api\\Program.cs",
               "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Program.cs",
               "RelativeToolTip": "QuizHub.Api\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T10:53:16.915Z",
+              "WhenOpened": "2025-09-22T12:09:05.63Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserResultDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserResultDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\DTOs\\Users\\UserResultDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserResultDto.cs",
+              "RelativeToolTip": "QuizHub.Services\\DTOs\\Users\\UserResultDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T12:02:14.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserLoginServiceDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserLoginServiceDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\DTOs\\Users\\UserLoginServiceDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserLoginServiceDto.cs",
+              "RelativeToolTip": "QuizHub.Services\\DTOs\\Users\\UserLoginServiceDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T12:01:57.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Interfaces\\IUserService.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\Interfaces\\IUserService.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Interfaces\\IUserService.cs",
+              "RelativeToolTip": "QuizHub.Services\\Interfaces\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T12:01:33.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserCreateDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\DTOs\\Users\\UserCreateDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserCreateDto.cs",
+              "RelativeToolTip": "QuizHub.Services\\DTOs\\Users\\UserCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T11:58:51.974Z",
               "EditorCaption": ""
             }
           ]
