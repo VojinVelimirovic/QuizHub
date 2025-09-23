@@ -14,6 +14,7 @@ namespace QuizHub.Data.Models
         public int Score { get; set; }
         public double Percentage { get; set; }
         public DateTime CompletedAt { get; set; } = DateTime.UtcNow;
+        public TimeSpan Duration { get; set; }
         public User User { get; set; } = null!;
         public Quiz Quiz { get; set; } = null!;
     }

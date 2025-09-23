@@ -1,19 +1,51 @@
-# Visual Studio
+# =====================
+# Visual Studio / IDE
+# =====================
 .vs/
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
+.idea/
+.vscode/
 
+# =====================
 # Build results
+# =====================
 bin/
 obj/
+*.exe
+*.dll
+*.pdb
 
-# EF Migrations
+# =====================
+# EF Core / Database
+# =====================
 *.db
 *.mdf
 *.ldf
+# Keep Migrations folder if you want versioned migrations
+# Migrations/
 
-# Node / frontend if any
+# =====================
+# Node / Frontend
+# =====================
 node_modules/
 dist/
+npm-debug.log
+yarn-error.log
+
+# =====================
+# User-specific / Logs / Temp
+# =====================
+*.log
+*.vsix
+*.nupkg
+*.cache
+*.tmp
+
+# =====================
+# Secrets / Environment
+# =====================
+.env
+appsettings.Development.json

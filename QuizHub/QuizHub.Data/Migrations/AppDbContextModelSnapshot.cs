@@ -72,6 +72,9 @@ namespace QuizHub.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
                     b.Property<int>("QuizId")
                         .HasColumnType("int");
 
@@ -131,6 +134,9 @@ namespace QuizHub.Data.Migrations
 
                     b.Property<DateTime>("CompletedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
 
                     b.Property<double>("Percentage")
                         .HasColumnType("float");

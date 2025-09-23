@@ -3,40 +3,120 @@
   "WorkspaceRootPath": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\implementations\\quizservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\implementations\\quizservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\mapping\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\mapping\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\dtos\\users\\userresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\dtos\\users\\userresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\implementations\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\implementations\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\dtos\\users\\userloginservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\dtos\\users\\userloginservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\dtos\\categories\\categoryservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\dtos\\categories\\categoryservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\dtos\\users\\usercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\dtos\\users\\usercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\dtos\\categories\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\dtos\\categories\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\controllers\\quizzescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\controllers\\quizzescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\interfaces\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\interfaces\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\interfaces\\iquizservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\interfaces\\iquizservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\dtos\\categories\\categorycreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\dtos\\categories\\categorycreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\dtos\\categories\\categorycreateservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\dtos\\categories\\categorycreateservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}|QuizHub.Data\\QuizHub.Data.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.data\\models\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}|QuizHub.Data\\QuizHub.Data.csproj|solutionrelative:quizhub.data\\models\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\dtos\\questions\\questioncreateservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\dtos\\questions\\questioncreateservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\dtos\\quizzes\\quizfullcreateservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\dtos\\quizzes\\quizfullcreateservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.services\\dtos\\questions\\answeroptioncreateservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C3C3164-B503-444B-B2A6-89EC9382004E}|QuizHub.Services\\QuizHub.Services.csproj|solutionrelative:quizhub.services\\dtos\\questions\\answeroptioncreateservicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\dtos\\quizzes\\quizfullcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\dtos\\quizzes\\quizfullcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\dtos\\questions\\questioncreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\dtos\\questions\\questioncreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\dtos\\questions\\answeroptioncreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\dtos\\questions\\answeroptioncreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\dtos\\questions\\answeroptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\dtos\\questions\\answeroptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\dtos\\questions\\questiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\dtos\\questions\\questiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\dtos\\quizzes\\quizresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\dtos\\quizzes\\quizresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\dtos\\quizzes\\quizdetaildto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\dtos\\quizzes\\quizdetaildto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\dtos\\quizzes\\quizcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\dtos\\quizzes\\quizcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.api\\dtos\\quizresults\\questionresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F866205-75AB-4A3B-AA9A-EA7EB8BD1144}|QuizHub.Api\\QuizHub.Api.csproj|solutionrelative:quizhub.api\\dtos\\quizresults\\questionresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}|QuizHub.Data\\QuizHub.Data.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.data\\models\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}|QuizHub.Data\\QuizHub.Data.csproj|solutionrelative:quizhub.data\\models\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}|QuizHub.Data\\QuizHub.Data.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.data\\models\\answeroption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}|QuizHub.Data\\QuizHub.Data.csproj|solutionrelative:quizhub.data\\models\\answeroption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}|QuizHub.Data\\QuizHub.Data.csproj|c:\\users\\korisnik\\desktop\\pugs\\quizhub\\quizhub\\quizhub.data\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}|QuizHub.Data\\QuizHub.Data.csproj|solutionrelative:quizhub.data\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,123 +126,383 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\appsettings.json",
-              "RelativeDocumentMoniker": "QuizHub.Api\\appsettings.json",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\appsettings.json",
-              "RelativeToolTip": "QuizHub.Api\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-22T12:14:45.825Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "QuizHub.Api\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "QuizHub.Api\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAYwBsAAAANAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "CategoryDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Categories\\CategoryDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\DTOs\\Categories\\CategoryDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Categories\\CategoryDto.cs",
+              "RelativeToolTip": "QuizHub.Api\\DTOs\\Categories\\CategoryDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T12:22:34.201Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Implementations\\UserService.cs",
-              "RelativeDocumentMoniker": "QuizHub.Services\\Implementations\\UserService.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Implementations\\UserService.cs",
-              "RelativeToolTip": "QuizHub.Services\\Implementations\\UserService.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAgwAkAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T12:03:02.062Z",
+              "WhenOpened": "2025-09-23T12:01:54.424Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "AutoMapperProfile.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
-              "RelativeDocumentMoniker": "QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
-              "RelativeToolTip": "QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAJAAAAAAAAAA==",
+              "Title": "CategoryServiceDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Categories\\CategoryServiceDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\DTOs\\Categories\\CategoryServiceDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Categories\\CategoryServiceDto.cs",
+              "RelativeToolTip": "QuizHub.Services\\DTOs\\Categories\\CategoryServiceDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T12:12:37.893Z",
+              "WhenOpened": "2025-09-23T12:01:19.777Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Program.cs",
-              "RelativeDocumentMoniker": "QuizHub.Api\\Program.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Program.cs",
-              "RelativeToolTip": "QuizHub.Api\\Program.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAA4AAAAAAAAAA==",
+              "Title": "CategoriesController.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Controllers\\CategoriesController.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\Controllers\\CategoriesController.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Controllers\\CategoriesController.cs",
+              "RelativeToolTip": "QuizHub.Api\\Controllers\\CategoriesController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAswCMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T12:09:05.63Z",
+              "WhenOpened": "2025-09-23T11:56:44.009Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "UserResultDto.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserResultDto.cs",
-              "RelativeDocumentMoniker": "QuizHub.Services\\DTOs\\Users\\UserResultDto.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserResultDto.cs",
-              "RelativeToolTip": "QuizHub.Services\\DTOs\\Users\\UserResultDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Title": "QuizzesController.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Controllers\\QuizzesController.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\Controllers\\QuizzesController.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Controllers\\QuizzesController.cs",
+              "RelativeToolTip": "QuizHub.Api\\Controllers\\QuizzesController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABQAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T12:02:14.297Z",
+              "WhenOpened": "2025-09-23T11:24:34.154Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CategoryService.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Implementations\\CategoryService.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\Implementations\\CategoryService.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Implementations\\CategoryService.cs",
+              "RelativeToolTip": "QuizHub.Services\\Implementations\\CategoryService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:54:43.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AutoMapperProfile.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
+              "RelativeToolTip": "QuizHub.Services\\Mapping\\AutoMapperProfile.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAIwDQAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:42:40.45Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "QuizService.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Implementations\\QuizService.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\Implementations\\QuizService.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Implementations\\QuizService.cs",
+              "RelativeToolTip": "QuizHub.Services\\Implementations\\QuizService.cs",
+              "ViewState": "AgIAAOUAAAAAAAAAAAAIwMcAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:23:31.578Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "UserLoginServiceDto.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserLoginServiceDto.cs",
-              "RelativeDocumentMoniker": "QuizHub.Services\\DTOs\\Users\\UserLoginServiceDto.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserLoginServiceDto.cs",
-              "RelativeToolTip": "QuizHub.Services\\DTOs\\Users\\UserLoginServiceDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Program.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\Program.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\Program.cs",
+              "RelativeToolTip": "QuizHub.Api\\Program.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T12:01:57.588Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IUserService.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Interfaces\\IUserService.cs",
-              "RelativeDocumentMoniker": "QuizHub.Services\\Interfaces\\IUserService.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Interfaces\\IUserService.cs",
-              "RelativeToolTip": "QuizHub.Services\\Interfaces\\IUserService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T12:01:33.489Z",
+              "WhenOpened": "2025-09-23T11:55:53.342Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "UserCreateDto.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserCreateDto.cs",
-              "RelativeDocumentMoniker": "QuizHub.Services\\DTOs\\Users\\UserCreateDto.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Users\\UserCreateDto.cs",
-              "RelativeToolTip": "QuizHub.Services\\DTOs\\Users\\UserCreateDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Implementations\\UserService.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\Implementations\\UserService.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Implementations\\UserService.cs",
+              "RelativeToolTip": "QuizHub.Services\\Implementations\\UserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T11:58:51.974Z",
+              "WhenOpened": "2025-09-23T11:54:47.376Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ICategoryService.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Interfaces\\ICategoryService.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\Interfaces\\ICategoryService.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Interfaces\\ICategoryService.cs",
+              "RelativeToolTip": "QuizHub.Services\\Interfaces\\ICategoryService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:53:46.978Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IQuizService.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Interfaces\\IQuizService.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\Interfaces\\IQuizService.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\Interfaces\\IQuizService.cs",
+              "RelativeToolTip": "QuizHub.Services\\Interfaces\\IQuizService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:23:22.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CategoryCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Categories\\CategoryCreateDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\DTOs\\Categories\\CategoryCreateDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Categories\\CategoryCreateDto.cs",
+              "RelativeToolTip": "QuizHub.Api\\DTOs\\Categories\\CategoryCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:48:40.493Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CategoryCreateServiceDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Categories\\CategoryCreateServiceDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\DTOs\\Categories\\CategoryCreateServiceDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Categories\\CategoryCreateServiceDto.cs",
+              "RelativeToolTip": "QuizHub.Services\\DTOs\\Categories\\CategoryCreateServiceDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:48:06.691Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "QuestionCreateServiceDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Questions\\QuestionCreateServiceDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\DTOs\\Questions\\QuestionCreateServiceDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Questions\\QuestionCreateServiceDto.cs",
+              "RelativeToolTip": "QuizHub.Services\\DTOs\\Questions\\QuestionCreateServiceDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:38:19.686Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "QuizFullCreateServiceDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Quizzes\\QuizFullCreateServiceDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\DTOs\\Quizzes\\QuizFullCreateServiceDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Quizzes\\QuizFullCreateServiceDto.cs",
+              "RelativeToolTip": "QuizHub.Services\\DTOs\\Quizzes\\QuizFullCreateServiceDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:38:54.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Question.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Data\\Models\\Question.cs",
+              "RelativeDocumentMoniker": "QuizHub.Data\\Models\\Question.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Data\\Models\\Question.cs",
+              "RelativeToolTip": "QuizHub.Data\\Models\\Question.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAtwBYAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T10:54:07.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AnswerOptionCreateServiceDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Questions\\AnswerOptionCreateServiceDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Services\\DTOs\\Questions\\AnswerOptionCreateServiceDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\DTOs\\Questions\\AnswerOptionCreateServiceDto.cs",
+              "RelativeToolTip": "QuizHub.Services\\DTOs\\Questions\\AnswerOptionCreateServiceDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:37:39.363Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "QuizFullCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Quizzes\\QuizFullCreateDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\DTOs\\Quizzes\\QuizFullCreateDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Quizzes\\QuizFullCreateDto.cs",
+              "RelativeToolTip": "QuizHub.Api\\DTOs\\Quizzes\\QuizFullCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:32:29.771Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "QuestionCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Questions\\QuestionCreateDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\DTOs\\Questions\\QuestionCreateDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Questions\\QuestionCreateDto.cs",
+              "RelativeToolTip": "QuizHub.Api\\DTOs\\Questions\\QuestionCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:32:00.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "AnswerOptionCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Questions\\AnswerOptionCreateDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\DTOs\\Questions\\AnswerOptionCreateDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Questions\\AnswerOptionCreateDto.cs",
+              "RelativeToolTip": "QuizHub.Api\\DTOs\\Questions\\AnswerOptionCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:31:20.895Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "QuestionDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Questions\\QuestionDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\DTOs\\Questions\\QuestionDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Questions\\QuestionDto.cs",
+              "RelativeToolTip": "QuizHub.Api\\DTOs\\Questions\\QuestionDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:22:27.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "AnswerOptionDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Questions\\AnswerOptionDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\DTOs\\Questions\\AnswerOptionDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Questions\\AnswerOptionDto.cs",
+              "RelativeToolTip": "QuizHub.Api\\DTOs\\Questions\\AnswerOptionDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:22:20.102Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "QuizResponseDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Quizzes\\QuizResponseDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\DTOs\\Quizzes\\QuizResponseDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Quizzes\\QuizResponseDto.cs",
+              "RelativeToolTip": "QuizHub.Api\\DTOs\\Quizzes\\QuizResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:22:08.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "QuizDetailDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Quizzes\\QuizDetailDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\DTOs\\Quizzes\\QuizDetailDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Quizzes\\QuizDetailDto.cs",
+              "RelativeToolTip": "QuizHub.Api\\DTOs\\Quizzes\\QuizDetailDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:22:04.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "QuizCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Quizzes\\QuizCreateDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\DTOs\\Quizzes\\QuizCreateDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\Quizzes\\QuizCreateDto.cs",
+              "RelativeToolTip": "QuizHub.Api\\DTOs\\Quizzes\\QuizCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:21:59.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "QuestionResultDto.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\QuizResults\\QuestionResultDto.cs",
+              "RelativeDocumentMoniker": "QuizHub.Api\\DTOs\\QuizResults\\QuestionResultDto.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Api\\DTOs\\QuizResults\\QuestionResultDto.cs",
+              "RelativeToolTip": "QuizHub.Api\\DTOs\\QuizResults\\QuestionResultDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T11:21:53.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "AnswerOption.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Data\\Models\\AnswerOption.cs",
+              "RelativeDocumentMoniker": "QuizHub.Data\\Models\\AnswerOption.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Data\\Models\\AnswerOption.cs",
+              "RelativeToolTip": "QuizHub.Data\\Models\\AnswerOption.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T10:54:08.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Data\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "QuizHub.Data\\Models\\Category.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Data\\Models\\Category.cs",
+              "RelativeToolTip": "QuizHub.Data\\Models\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T10:54:06.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Quiz.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Data\\Models\\Quiz.cs",
+              "RelativeDocumentMoniker": "QuizHub.Data\\Models\\Quiz.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Data\\Models\\Quiz.cs",
+              "RelativeToolTip": "QuizHub.Data\\Models\\Quiz.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T10:54:02.845Z",
               "EditorCaption": ""
             }
           ]

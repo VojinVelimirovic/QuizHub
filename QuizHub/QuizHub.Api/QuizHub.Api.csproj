@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\QuizHub.Data\QuizHub.Data.csproj" />
     <ProjectReference Include="..\QuizHub.Services\QuizHub.Services.csproj" />
     <ProjectReference Include="..\QuizHub.Shared\QuizHub.Shared.csproj" />

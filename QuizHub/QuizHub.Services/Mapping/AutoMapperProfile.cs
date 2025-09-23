@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
 using QuizHub.Data.Models;
+using QuizHub.Services.DTOs.Categories;
+using QuizHub.Services.DTOs.Questions;
+using QuizHub.Services.DTOs.QuizResults;
+using QuizHub.Services.DTOs.Quizzes;
 using QuizHub.Services.DTOs.Users;
 //using QuizHub.Services.DTOs.Quizzes;
 //using QuizHub.Services.DTOs.Questions;
@@ -16,18 +20,47 @@ namespace QuizHub.Services.Mapping
             CreateMap<User, UserResultDto>();
 
             // Quizzes
-            //CreateMap<QuizCreateDto, Quiz>();
-            //CreateMap<Quiz, QuizResultDto>();
-            //CreateMap<Quiz, QuizDetailDto>();
+            CreateMap<QuizCreateServiceDto, Quiz>()
+                .ForMember(dest => dest.Difficulty, opt => opt.Ignore());
+
+            CreateMap<Quiz, QuizResponseServiceDto>()
+                .ForMember(dest => dest.QuestionCount, opt => opt.MapFrom(src => src.Questions.Count))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+            CreateMap<Quiz, QuizDetailServiceDto>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
             // Questions
-            //CreateMap<QuestionCreateDto, Question>();
-            //CreateMap<Question, QuestionDto>();
-            //CreateMap<AnswerOptionCreateDto, AnswerOption>();
-            //CreateMap<AnswerOption, AnswerOptionDto>();
+            CreateMap<Question, QuestionServiceDto>()
+                .ForMember(dest => dest.QuestionType, opt => opt.MapFrom(src => src.Type.ToString()));
+            CreateMap<AnswerOption, AnswerOptionServiceDto>();
 
             // Quiz Results
-            //CreateMap<QuizResult, QuizResultDto>();
+            CreateMap<QuizResult, QuizResultResponseServiceDto>()
+                .ForMember(dest => dest.QuizId, opt => opt.MapFrom(src => src.QuizId))
+                .ForMember(dest => dest.QuizTitle, opt => opt.MapFrom(src => src.Quiz.Title))
+                .ForMember(dest => dest.TotalQuestions, opt => opt.MapFrom(src => src.Quiz.Questions.Count))
+                .ForMember(dest => dest.CorrectAnswers, opt => opt.MapFrom(src => src.Score))
+                .ForMember(dest => dest.ScorePercentage, opt => opt.MapFrom(src => src.Percentage))
+                .ForMember(dest => dest.CompletedAt, opt => opt.MapFrom(src => src.CompletedAt))
+                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration))
+                .ForMember(dest => dest.QuestionResults, opt => opt.Ignore()); // fill manually if needed
+
+            // Categories
+            CreateMap<Category, CategoryServiceDto>();
+            CreateMap<CategoryCreateServiceDto, Category>();
+
+            CreateMap<QuestionCreateServiceDto, Question>()
+    .ForMember(dest => dest.Type, opt => opt.MapFrom(src => MapQuestionType(src.QuestionType)));
+
+
         }
+        private static QuestionType MapQuestionType(string type) => type switch
+        {
+            "SingleChoice" => QuestionType.SingleChoice,
+            "MultipleChoice" => QuestionType.MultipleChoice,
+            "TrueFalse" => QuestionType.TrueFalse,
+            "FillIn" => QuestionType.FillInTheBlank,
+            _ => QuestionType.SingleChoice
+        };
     }
 }
