@@ -6,6 +6,6 @@
         public string Username { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string? ProfileImageUrl { get; set; }
-        public string Role { get; set; } = "User"; // Default role
+        public string Role { get; set; } = "User";
     }
 }

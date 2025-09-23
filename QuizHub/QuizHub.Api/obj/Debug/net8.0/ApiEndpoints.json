@@ -2,7 +2,7 @@
   {
     "ContainingType": "QuizHub.Api.Controllers.CategoriesController",
     "Method": "CreateCategory",
-    "RelativePath": "api/Categories/categories",
+    "RelativePath": "api/Categories",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -18,7 +18,7 @@
   {
     "ContainingType": "QuizHub.Api.Controllers.CategoriesController",
     "Method": "GetAllCategories",
-    "RelativePath": "api/Categories/categories",
+    "RelativePath": "api/Categories",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

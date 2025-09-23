@@ -20,15 +20,23 @@ namespace QuizHub.Api.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("categories")]
+        [HttpPost]
         public async Task<IActionResult> CreateCategory([FromBody] CategoryCreateDto dto)
         {
-            var serviceDto = new CategoryCreateServiceDto { Name = dto.Name };
-            var category = await _categoryService.CreateCategoryAsync(serviceDto);
-            return Ok(category);
+            try
+            {
+                var serviceDto = new CategoryCreateServiceDto { Name = dto.Name };
+                var category = await _categoryService.CreateCategoryAsync(serviceDto);
+                return Ok(category);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        [HttpGet("categories")]
+
+        [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _categoryService.GetAllCategoriesAsync();

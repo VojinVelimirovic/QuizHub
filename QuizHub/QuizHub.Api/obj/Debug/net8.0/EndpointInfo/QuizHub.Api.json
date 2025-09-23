@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Categories/categories": {
+    "/api/Categories": {
       "post": {
         "tags": [
           "Categories"

@@ -28,11 +28,23 @@ namespace QuizHub.Services.Implementations
 
         public async Task<CategoryServiceDto> CreateCategoryAsync(CategoryCreateServiceDto dto)
         {
-            var category = new Category { Name = dto.Name };
+            var normalizedName = dto.Name.Trim().ToLower();
+
+            var exists = await _context.Categories
+                .AnyAsync(c => c.Name.ToLower() == normalizedName);
+
+            if (exists)
+            {
+                throw new InvalidOperationException("Category already exists.");
+            }
+
+            var category = new Category { Name = dto.Name.Trim() };
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
+
             return _mapper.Map<CategoryServiceDto>(category);
         }
+
 
         public async Task<List<CategoryServiceDto>> GetAllCategoriesAsync()
         {

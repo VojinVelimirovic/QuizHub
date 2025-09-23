@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizHub.Services", "QuizHub
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizHub.Data", "QuizHub.Data\QuizHub.Data.csproj", "{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizHub.Shared", "QuizHub.Shared\QuizHub.Shared.csproj", "{B55772DC-1769-4E0A-8C3F-8AF0CCDD1621}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1E9452B-81B0-4F1F-83A8-0B6E2A239711}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B55772DC-1769-4E0A-8C3F-8AF0CCDD1621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B55772DC-1769-4E0A-8C3F-8AF0CCDD1621}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B55772DC-1769-4E0A-8C3F-8AF0CCDD1621}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B55772DC-1769-4E0A-8C3F-8AF0CCDD1621}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

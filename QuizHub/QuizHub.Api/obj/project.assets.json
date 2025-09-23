@@ -1717,24 +1717,13 @@
           "AutoMapper": "12.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
           "BCrypt.Net-Next": "4.0.3",
-          "QuizHub.Data": "1.0.0",
-          "QuizHub.Shared": "1.0.0"
+          "QuizHub.Data": "1.0.0"
         },
         "compile": {
           "bin/placeholder/QuizHub.Services.dll": {}
         },
         "runtime": {
           "bin/placeholder/QuizHub.Services.dll": {}
-        }
-      },
-      "QuizHub.Shared/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/QuizHub.Shared.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/QuizHub.Shared.dll": {}
         }
       }
     }
@@ -5066,11 +5055,6 @@
       "type": "project",
       "path": "../QuizHub.Services/QuizHub.Services.csproj",
       "msbuildProject": "../QuizHub.Services/QuizHub.Services.csproj"
-    },
-    "QuizHub.Shared/1.0.0": {
-      "type": "project",
-      "path": "../QuizHub.Shared/QuizHub.Shared.csproj",
-      "msbuildProject": "../QuizHub.Shared/QuizHub.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5081,7 +5065,6 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.9",
       "QuizHub.Data >= 1.0.0",
       "QuizHub.Services >= 1.0.0",
-      "QuizHub.Shared >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
@@ -5124,9 +5107,6 @@
             },
             "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\QuizHub.Services.csproj": {
               "projectPath": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Services\\QuizHub.Services.csproj"
-            },
-            "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Shared\\QuizHub.Shared.csproj": {
-              "projectPath": "C:\\Users\\Korisnik\\Desktop\\PUGS\\QuizHub\\QuizHub\\QuizHub.Shared\\QuizHub.Shared.csproj"
             }
           }
         }
