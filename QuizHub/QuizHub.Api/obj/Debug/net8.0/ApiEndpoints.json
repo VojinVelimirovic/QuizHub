@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "QuizHub.Api.Controllers.CategoriesController",
+    "Method": "CreateCategory",
+    "RelativePath": "api/Categories/categories",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuizHub.Api.DTOs.Categories.CategoryCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.CategoriesController",
+    "Method": "GetAllCategories",
+    "RelativePath": "api/Categories/categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
     "Method": "GetAll",
     "RelativePath": "api/Quizzes",
@@ -58,6 +84,22 @@
         "Name": "top",
         "Type": "System.Int32",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
+    "Method": "CreateFullQuiz",
+    "RelativePath": "api/Quizzes/full",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuizHub.Api.DTOs.Quizzes.QuizFullCreateDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

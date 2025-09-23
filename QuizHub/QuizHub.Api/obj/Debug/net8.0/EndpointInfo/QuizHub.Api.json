@@ -5,6 +5,47 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Categories/categories": {
+      "post": {
+        "tags": [
+          "Categories"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Quizzes": {
       "get": {
         "tags": [
@@ -144,6 +185,37 @@
         }
       }
     },
+    "/api/Quizzes/full": {
+      "post": {
+        "tags": [
+          "Quizzes"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuizFullCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuizFullCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuizFullCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Users/register": {
       "post": {
         "tags": [
@@ -209,6 +281,54 @@
   },
   "components": {
     "schemas": {
+      "AnswerOptionCreateDto": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCorrect": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoryCreateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuestionCreateDto": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "nullable": true
+          },
+          "questionType": {
+            "type": "string",
+            "nullable": true
+          },
+          "points": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "answerOptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnswerOptionCreateDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "QuizCreateServiceDto": {
         "type": "object",
         "properties": {
@@ -235,6 +355,39 @@
         },
         "additionalProperties": false
       },
+      "QuizFullCreateDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "timeLimitMinutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "difficulty": {
+            "type": "string",
+            "nullable": true
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionCreateDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "QuizResultCreateServiceDto": {
         "type": "object",
         "properties": {
@@ -248,6 +401,10 @@
               "$ref": "#/components/schemas/UserAnswerServiceDto"
             },
             "nullable": true
+          },
+          "durationSeconds": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
