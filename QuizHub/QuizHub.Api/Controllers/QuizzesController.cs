@@ -108,11 +108,13 @@ namespace QuizHub.Api.Controllers
                     Text = q.Text,
                     QuestionType = q.QuestionType,
                     Points = q.Points,
-                    AnswerOptions = q.AnswerOptions.Select(ao => new AnswerOptionCreateServiceDto
+                    AnswerOptions = q.AnswerOptions?.Select(ao => new AnswerOptionCreateServiceDto
                     {
                         Text = ao.Text,
                         IsCorrect = ao.IsCorrect
-                    }).ToList()
+                    }).ToList() ?? new List<AnswerOptionCreateServiceDto>(),
+
+                    TextAnswer = q.QuestionType == "FillIn" ? q.TextAnswer : null
                 }).ToList()
             };
 

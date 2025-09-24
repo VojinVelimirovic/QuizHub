@@ -9,5 +9,6 @@ namespace QuizHub.Services.DTOs.Questions
         public int Points { get; set; } = 1;
 
         public List<AnswerOptionCreateServiceDto> AnswerOptions { get; set; } = new List<AnswerOptionCreateServiceDto>();
+        public string? TextAnswer { get; set; }
     }
 }

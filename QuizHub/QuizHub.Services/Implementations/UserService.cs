@@ -27,15 +27,21 @@ namespace QuizHub.Services.Implementations
             _configuration = configuration;
         }
 
-        public async Task<UserResultDto> RegisterAsync(UserCreateDto userDto)
+        public async Task<UserResultDto> RegisterAsync(UserCreateDto userDto, string? profileImageUrl)
         {
             if (await _context.Users.AnyAsync(u => u.Username == userDto.Username))
                 throw new Exception("Username already exists.");
             if (await _context.Users.AnyAsync(u => u.Email == userDto.Email))
                 throw new Exception("Email already exists.");
 
-            var user = _mapper.Map<User>(userDto);
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
+            var user = new User
+            {
+                Username = userDto.Username,
+                Email = userDto.Email,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDto.Password),
+                ProfilePictureUrl = profileImageUrl,
+                Role = "User" // default role
+            };
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();

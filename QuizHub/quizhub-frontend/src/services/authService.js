@@ -2,8 +2,10 @@ import axios from "axios";
 
 const API_URL = "https://localhost:7208/api/users";
 
-export const register = async (userData) => {
-  const response = await axios.post(`${API_URL}/register`, userData);
+export const register = async (formData) => {
+  const response = await axios.post(`${API_URL}/register`, formData, {
+    headers: { "Content-Type": "multipart/form-data" }
+  });
   return response.data;
 };
 

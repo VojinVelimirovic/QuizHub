@@ -199,6 +199,32 @@ namespace QuizHub.Services.Implementations
 
         public async Task<QuizResponseServiceDto> CreateFullQuizAsync(QuizFullCreateServiceDto dto)
         {
+            if (string.IsNullOrWhiteSpace(dto.Title))
+                throw new InvalidOperationException("Quiz title is required.");
+
+            if (dto.Questions == null || !dto.Questions.Any())
+                throw new InvalidOperationException("At least one question is required.");
+
+            foreach (var qDto in dto.Questions)
+            {
+                if (string.IsNullOrWhiteSpace(qDto.Text))
+                    throw new InvalidOperationException("Question text is required.");
+
+                if (qDto.QuestionType == "FillIn")
+                {
+                    if (string.IsNullOrWhiteSpace(qDto.TextAnswer))
+                        throw new InvalidOperationException("Fill-in questions must have an answer.");
+                }
+                else
+                {
+                    if (qDto.AnswerOptions == null || !qDto.AnswerOptions.Any())
+                        throw new InvalidOperationException("Multiple choice / true-false questions must have answer options.");
+
+                    if (!qDto.AnswerOptions.Any(ao => ao.IsCorrect))
+                        throw new InvalidOperationException("Each question must have at least one correct answer.");
+                }
+            }
+
             using var transaction = await _context.Database.BeginTransactionAsync();
 
             try
@@ -228,13 +254,15 @@ namespace QuizHub.Services.Implementations
                             _ => QuestionType.SingleChoice
                         },
                         Points = qDto.Points,
-                        AnswerOptions = qDto.AnswerOptions.Select(aoDto => new AnswerOption
+                        AnswerOptions = qDto.AnswerOptions?.Select(aoDto => new AnswerOption
                         {
                             Text = aoDto.Text,
                             IsCorrect = aoDto.IsCorrect
-                        }).ToList()
+                        }).ToList() ?? new List<AnswerOption>(),
+                        TextAnswer = qDto.QuestionType == "FillIn" ? qDto.TextAnswer : null
                     }).ToList()
                 };
+
                 _context.Quizzes.Add(quiz);
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
@@ -246,7 +274,5 @@ namespace QuizHub.Services.Implementations
                 throw;
             }
         }
-
-
     }
 }

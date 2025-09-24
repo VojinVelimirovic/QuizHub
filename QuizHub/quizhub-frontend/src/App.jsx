@@ -8,7 +8,6 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
-  console.log(user)
 
   return (
     <Router>
@@ -16,14 +15,10 @@ function App() {
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
-        {/* Quizzes accessible to any authenticated user */}
         <Route
           path="/quizzes"
           element={user ? <Quizzes /> : <Navigate to="/login" />}
         />
-
-        {/* CreateQuizPage only for admin users */}
         <Route
           path="/create-quiz"
           element={
@@ -36,8 +31,6 @@ function App() {
             )
           }
         />
-
-        {/* Catch-all redirects */}
         <Route
           path="*"
           element={<Navigate to={user ? "/quizzes" : "/login"} />}
