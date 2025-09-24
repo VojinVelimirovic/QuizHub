@@ -31,8 +31,7 @@ export default function Register() {
       formData.append("profileImage", profileFile);
 
       await register(formData);
-
-      // auto-login
+      
       const { token, user } = await login({ usernameOrEmail: form.username, password: form.password });
       loginUser(user, token);
       navigate("/quizzes");

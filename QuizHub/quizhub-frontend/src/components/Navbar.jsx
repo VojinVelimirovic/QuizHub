@@ -25,7 +25,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="profile-section">
         <div className="profile" onClick={handleProfileClick}>
-          <img src={user?.profileImageUrl || "/default-profile.png"} alt="Profile" />
+          <img src={`https://localhost:7208${user?.profilePictureUrl}` || "/default-profile.png"} alt="Profile" />
           <span>{user?.username}</span>
         </div>
         {user?.role === "Admin" && (

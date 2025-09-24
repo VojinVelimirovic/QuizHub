@@ -50,10 +50,35 @@ export default function CreateQuizPage() {
   const handleRemoveQuestion = (qIndex) => { setQuestions(questions.filter((_, i) => i !== qIndex)); };
 
   const handleQuestionChange = (qIndex, field, value) => {
-    const updated = [...questions]; updated[qIndex][field] = value;
+    const updated = [...questions]; 
+    const previousType = updated[qIndex].questionType;
+    updated[qIndex][field] = value;
+    
     if (field === "questionType") {
-      if (value === "SingleChoice") updated[qIndex].answerOptions = updated[qIndex].answerOptions.map(ao => ({ ...ao, isCorrect: false }));
-      if (value === "FillInTheBlank") updated[qIndex].answerOptions = [];
+      if (value === "SingleChoice") {
+        if (previousType === "TrueFalse") {
+          updated[qIndex].answerOptions = [];
+        } else {
+          updated[qIndex].answerOptions = updated[qIndex].answerOptions.map(ao => ({ 
+            ...ao, 
+            isCorrect: false 
+          }));
+        }
+      } 
+      else if (value === "MultipleChoice") {
+        if (previousType === "TrueFalse") {
+          updated[qIndex].answerOptions = [];
+        }
+      }
+      else if (value === "TrueFalse") {
+        updated[qIndex].answerOptions = [
+          { text: "True", isCorrect: false },
+          { text: "False", isCorrect: false }
+        ];
+      }
+      else if (value === "FillInTheBlank") {
+        updated[qIndex].answerOptions = [];
+      }
     }
     setQuestions(updated);
   };
@@ -66,9 +91,19 @@ export default function CreateQuizPage() {
 
   const handleAnswerOptionChange = (qIndex, aoIndex, field, value) => {
     const updated = [...questions];
-    if (field === "isCorrect" && questions[qIndex].questionType === "SingleChoice") {
-      updated[qIndex].answerOptions = updated[qIndex].answerOptions.map((ao, i) => ({ ...ao, isCorrect: i === aoIndex ? value : false }));
-    } else { updated[qIndex].answerOptions[aoIndex][field] = value; }
+    
+    if (field === "isCorrect") {
+      if (questions[qIndex].questionType === "SingleChoice" || questions[qIndex].questionType === "TrueFalse") {
+        updated[qIndex].answerOptions = updated[qIndex].answerOptions.map((ao, i) => ({ 
+          ...ao, 
+          isCorrect: i === aoIndex ? value : false 
+        }));
+      } else {
+        updated[qIndex].answerOptions[aoIndex][field] = value;
+      }
+    } else {
+      updated[qIndex].answerOptions[aoIndex][field] = value;
+    }
     setQuestions(updated);
   };
 
@@ -110,94 +145,112 @@ export default function CreateQuizPage() {
   return (
     <div className="create-quiz-page">
       <Navbar />
+      <div className="form-scroll-container">
       <h2>Create Quiz</h2>
-      <form onSubmit={handleSubmit}>
-        <div><label>Title*</label><input value={title} onChange={(e) => setTitle(e.target.value)} /></div>
-        <div><label>Description</label><textarea value={description} onChange={(e) => setDescription(e.target.value)} /></div>
+        <form onSubmit={handleSubmit}>
+          <div><label>Title*</label><input value={title} onChange={(e) => setTitle(e.target.value)} /></div>
+          <div><label>Description</label><textarea value={description} onChange={(e) => setDescription(e.target.value)} /></div>
 
-        <div>
-          <label>Category*</label>
-          {!addingCategory ? (
-            <div className="category-section">
-              <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-                <option value="">-- Select Category --</option>
-                {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-              </select>
-              <button type="button" onClick={() => setAddingCategory(true)}>+</button>
-            </div>
-          ) : (
-            <div className="add-category-section">
-              <input type="text" placeholder="New category name" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} />
-              <button type="button" onClick={handleAddCategory}>Save</button>
-              <button type="button" onClick={handleCancelCategory}>Cancel</button>
-            </div>
-          )}
-        </div>
-
-        <div><label>Time Limit (minutes)*</label><input type="number" value={timeLimit} onChange={(e) => setTimeLimit(e.target.value)} /></div>
-        <div><label>Difficulty</label><select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}><option>Easy</option><option>Medium</option><option>Hard</option></select></div>
-
-        <div className="questions-header">
-          <h3>Questions</h3>
-          <button type="button" onClick={handleAddQuestion}>+ Add Question</button>
-        </div>
-
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="questions">
-            {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                {questions.map((q, qIndex) => (
-                  <Draggable key={qIndex} draggableId={`q-${qIndex}`} index={qIndex}>
-                    {(provided) => (
-                      <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="question-card">
-                        <div className="question-header">Question {qIndex + 1}</div>
-                        <button type="button" className="collapse-btn" onClick={() => toggleCollapse(qIndex)}>
-                          {q.collapsed ? <FiChevronDown/> : <FiChevronUp/>}
-                        </button>
-
-                        {!q.collapsed && (
-                          <>
-                            <div><br></br><label>Question Text*</label><input value={q.text} onChange={(e) => handleQuestionChange(qIndex, "text", e.target.value)} /></div>
-                            <div><label>Type</label><select value={q.questionType} onChange={(e) => handleQuestionChange(qIndex, "questionType", e.target.value)}>
-                              <option value="SingleChoice">Single Choice</option>
-                              <option value="MultipleChoice">Multiple Choice</option>
-                              <option value="TrueFalse">True/False</option>
-                              <option value="FillInTheBlank">Fill In</option>
-                            </select></div>
-                            <div><label>Points</label><input type="number" value={q.points} onChange={(e) => handleQuestionChange(qIndex, "points", Number(e.target.value))} /></div>
-
-                            {q.questionType === "FillInTheBlank" ? (
-                              <div><label>Correct Answer*</label><input type="text" value={q.fillInAnswer} onChange={(e) => handleQuestionChange(qIndex, "fillInAnswer", e.target.value)} placeholder="Correct answer text" /></div>
-                            ) : (
-                              <div>
-                                <h4>Answer Options</h4>
-                                <button type="button" onClick={() => handleAddAnswerOption(qIndex)}>+ Add Option</button>
-                                {q.answerOptions.map((ao, aoIndex) => (
-                                  <div key={aoIndex} className="answer-option">
-                                    <input value={ao.text} onChange={(e) => handleAnswerOptionChange(qIndex, aoIndex, "text", e.target.value)} placeholder="Option text" />
-                                    <label>Correct?<input type="checkbox" checked={ao.isCorrect} onChange={(e) => handleAnswerOptionChange(qIndex, aoIndex, "isCorrect", e.target.checked)} /></label>
-                                    <button type="button" onClick={() => handleRemoveAnswerOption(qIndex, aoIndex)}>X</button>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-
-                            <button type="button" onClick={() => handleRemoveQuestion(qIndex)} className="remove-btn">Remove Question</button>
-                          </>
-                        )}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
+          <div>
+            <label>Category*</label>
+            {!addingCategory ? (
+              <div className="category-section">
+                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+                  <option value="">-- Select Category --</option>
+                  {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                </select>
+                <button type="button" onClick={() => setAddingCategory(true)}>+</button>
+              </div>
+            ) : (
+              <div className="add-category-section">
+                <input type="text" placeholder="New category name" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} />
+                <button type="button" onClick={handleAddCategory}>Save</button>
+                <button type="button" onClick={handleCancelCategory}>Cancel</button>
               </div>
             )}
-          </Droppable>
-        </DragDropContext>
+          </div>
 
-        {error && <p className="error">{error}</p>}
-        <button type="submit">Create Quiz</button>
-      </form>
+          <div><label>Time Limit (minutes)*</label><input type="number" value={timeLimit} onChange={(e) => setTimeLimit(e.target.value)} /></div>
+          <div><label>Difficulty</label><select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}><option>Easy</option><option>Medium</option><option>Hard</option></select></div>
+
+          <div className="questions-header">
+            <h3>Questions</h3>
+            <button type="button" onClick={handleAddQuestion}>+ Add Question</button>
+          </div>
+
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="questions">
+              {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {questions.map((q, qIndex) => (
+                    <Draggable key={qIndex} draggableId={`q-${qIndex}`} index={qIndex}>
+                      {(provided) => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="question-card">
+                          <div className="question-header">Question {qIndex + 1}</div>
+                          <button type="button" className="collapse-btn" onClick={() => toggleCollapse(qIndex)}>
+                            {q.collapsed ? <FiChevronDown/> : <FiChevronUp/>}
+                          </button>
+
+                          {!q.collapsed && (
+                            <>
+                              <div><br></br><label>Question Text*</label><input value={q.text} onChange={(e) => handleQuestionChange(qIndex, "text", e.target.value)} /></div>
+                              <div><label>Type</label><select value={q.questionType} onChange={(e) => handleQuestionChange(qIndex, "questionType", e.target.value)}>
+                                <option value="SingleChoice">Single Choice</option>
+                                <option value="MultipleChoice">Multiple Choice</option>
+                                <option value="TrueFalse">True/False</option>
+                                <option value="FillInTheBlank">Fill In</option>
+                              </select></div>
+                              <div><label>Points</label><input type="number" value={q.points} onChange={(e) => handleQuestionChange(qIndex, "points", Number(e.target.value))} /></div>
+
+                              {q.questionType === "FillInTheBlank" ? (
+                                <div><label>Correct Answer*</label><input type="text" value={q.fillInAnswer} onChange={(e) => handleQuestionChange(qIndex, "fillInAnswer", e.target.value)} placeholder="Correct answer text" /></div>
+                              ) : (
+                                <div>
+                                  <h4>Answer Options</h4>
+                                  {q.questionType !== "TrueFalse" && (
+                                    <button type="button" onClick={() => handleAddAnswerOption(qIndex)}>+ Add Option</button>
+                                  )}
+                                  {q.answerOptions.map((ao, aoIndex) => (
+                                    <div key={aoIndex} className="answer-option">
+                                      <input 
+                                        value={ao.text} 
+                                        onChange={(e) => handleAnswerOptionChange(qIndex, aoIndex, "text", e.target.value)} 
+                                        placeholder="Option text" 
+                                        disabled={q.questionType === "TrueFalse"}
+                                      />
+                                      <label>
+                                        Correct?
+                                        <input 
+                                          type="checkbox" 
+                                          checked={ao.isCorrect} 
+                                          onChange={(e) => handleAnswerOptionChange(qIndex, aoIndex, "isCorrect", e.target.checked)} 
+                                        />
+                                      </label>
+                                      {q.questionType !== "TrueFalse" && (
+                                        <button type="button" onClick={() => handleRemoveAnswerOption(qIndex, aoIndex)}>X</button>
+                                      )}
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                              <button type="button" onClick={() => handleRemoveQuestion(qIndex)} className="remove-btn">Remove Question</button>
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+
+          {error && <p className="error">{error}</p>}
+          <button type="submit">Create Quiz</button>
+        </form>
+      </div>
     </div>
   );
 }
