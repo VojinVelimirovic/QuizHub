@@ -20,7 +20,6 @@ namespace QuizHub.Data.Models
         public int QuizId { get; set; }
         public string Text { get; set; } = null!;
         public QuestionType Type { get; set; }
-        public int Points { get; set; } = 1;
         public Quiz Quiz { get; set; } = null!;
         public string? TextAnswer { get; set; }
         public ICollection<AnswerOption> AnswerOptions { get; set; } = new List<AnswerOption>();

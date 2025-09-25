@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAllQuizzes } from "../services/quizService";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
@@ -19,6 +20,7 @@ export default function Quizzes() {
   const [categoryFilter, setCategoryFilter] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState("");
   const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -52,7 +54,6 @@ export default function Quizzes() {
   }, [quizzes, categoryFilter, difficultyFilter, keyword]);
 
   const categories = [...new Set(quizzes.map(q => q.categoryName))];
-  const difficulties = [...new Set(quizzes.map(q => q.difficulty))];
 
   return (
     <div className="quizzes-page">
@@ -83,7 +84,11 @@ export default function Quizzes() {
         ) : (
           <div className="quiz-list">
             {filteredQuizzes.map(q => (
-              <div key={q.id} className="quiz-card">
+              <div
+                key={q.id}
+                className="quiz-card clickable"
+                onClick={() => navigate(`/quiz/${q.id}`)}
+              >
                 <h3>{q.title}</h3>
                 <p>{q.description}</p>
                 <div className="quiz-info">

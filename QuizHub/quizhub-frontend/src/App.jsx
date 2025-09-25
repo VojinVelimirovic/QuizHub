@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Quizzes from "./pages/Quizzes";
 import CreateQuizPage from "./pages/CreateQuizPage";
 import { AuthContext } from "./context/AuthContext";
+import QuizPage from "./pages/QuizPage";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -18,6 +19,10 @@ function App() {
         <Route
           path="/quizzes"
           element={user ? <Quizzes /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/quiz/:id"
+          element={user ? <QuizPage /> : <Navigate to="/login" />}
         />
         <Route
           path="/create-quiz"

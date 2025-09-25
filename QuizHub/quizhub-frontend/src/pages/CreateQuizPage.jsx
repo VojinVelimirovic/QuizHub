@@ -44,7 +44,7 @@ export default function CreateQuizPage() {
   const handleCancelCategory = () => { setNewCategory(""); setError(""); setAddingCategory(false); };
 
   const handleAddQuestion = () => {
-    setQuestions([...questions, { text: "", questionType: "SingleChoice", points: 1, answerOptions: [], fillInAnswer: "", collapsed: false }]);
+    setQuestions([...questions, { text: "", questionType: "SingleChoice", answerOptions: [], fillInAnswer: "", collapsed: false }]);
   };
 
   const handleRemoveQuestion = (qIndex) => { setQuestions(questions.filter((_, i) => i !== qIndex)); };
@@ -133,12 +133,12 @@ export default function CreateQuizPage() {
       questions: questions.map(q => ({
         text: q.text,
         questionType: q.questionType,
-        points: q.points,
-        answerOptions: q.questionType === "FillInTheBlank" ? [{ text: q.fillInAnswer, isCorrect: true }] : q.answerOptions
+        answerOptions: q.questionType === "FillInTheBlank" ? [{ text: q.fillInAnswer, isCorrect: true }] : q.answerOptions,
+        textAnswer: q.questionType === "FillInTheBlank" ? q.fillInAnswer : null
       }))
     };
 
-    try { await createFullQuiz(quiz, token); alert("Quiz created successfully!"); setTitle(""); setDescription(""); setSelectedCategory(""); setTimeLimit(""); setDifficulty("Easy"); setQuestions([]); setError(""); }
+    try {await createFullQuiz(quiz, token); alert("Quiz created successfully!"); setTitle(""); setDescription(""); setSelectedCategory(""); setTimeLimit(""); setDifficulty("Easy"); setQuestions([]); setError(""); }
     catch (err) { setError(err.response?.data?.message || "Failed to create quiz"); }
   };
 
@@ -200,7 +200,6 @@ export default function CreateQuizPage() {
                                 <option value="TrueFalse">True/False</option>
                                 <option value="FillInTheBlank">Fill In</option>
                               </select></div>
-                              <div><label>Points</label><input type="number" value={q.points} onChange={(e) => handleQuestionChange(qIndex, "points", Number(e.target.value))} /></div>
 
                               {q.questionType === "FillInTheBlank" ? (
                                 <div><label>Correct Answer*</label><input type="text" value={q.fillInAnswer} onChange={(e) => handleQuestionChange(qIndex, "fillInAnswer", e.target.value)} placeholder="Correct answer text" /></div>

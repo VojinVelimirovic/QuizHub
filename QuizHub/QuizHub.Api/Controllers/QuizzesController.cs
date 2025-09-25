@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using QuizHub.Services.DTOs.Quizzes;
 using QuizHub.Services.DTOs.QuizResults;
 using QuizHub.Services.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
 using System;
 using System.Threading.Tasks;
 using QuizHub.Api.DTOs.Quizzes;
 using QuizHub.Services.DTOs.Questions;
 using QuizHub.Api.DTOs.Categories;
 using QuizHub.Services.DTOs.Categories;
+using System.Security.Claims;
 
 namespace QuizHub.Api.Controllers
 {
@@ -62,13 +64,26 @@ namespace QuizHub.Api.Controllers
         {
             try
             {
-                var userId = int.Parse(User.FindFirst("sub")!.Value); // JWT sub claim
+                // Try multiple claim types to find the user ID
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ??
+                                 User.FindFirst(JwtRegisteredClaimNames.Sub) ??
+                                 User.FindFirst(ClaimTypes.Name);
+
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                {
+                    return Unauthorized(new { message = "Invalid user token" });
+                }
+
                 var result = await _quizService.SubmitQuizAsync(userId, dto);
                 return Ok(result);
             }
             catch (KeyNotFoundException)
             {
                 return NotFound(new { message = "Quiz not found" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -77,7 +92,16 @@ namespace QuizHub.Api.Controllers
         [HttpGet("user-results")]
         public async Task<IActionResult> GetUserResults()
         {
-            var userId = int.Parse(User.FindFirst("sub")!.Value);
+            // Try multiple claim types to find the user ID
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ??
+                             User.FindFirst(JwtRegisteredClaimNames.Sub) ??
+                             User.FindFirst(ClaimTypes.Name);
+
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return Unauthorized(new { message = "Invalid user token" });
+            }
+
             var results = await _quizService.GetUserResultsAsync(userId);
             return Ok(results);
         }
@@ -107,14 +131,13 @@ namespace QuizHub.Api.Controllers
                 {
                     Text = q.Text,
                     QuestionType = q.QuestionType,
-                    Points = q.Points,
                     AnswerOptions = q.AnswerOptions?.Select(ao => new AnswerOptionCreateServiceDto
                     {
                         Text = ao.Text,
                         IsCorrect = ao.IsCorrect
                     }).ToList() ?? new List<AnswerOptionCreateServiceDto>(),
 
-                    TextAnswer = q.QuestionType == "FillIn" ? q.TextAnswer : null
+                    TextAnswer = q.QuestionType == "FillInTheBlank" ? q.TextAnswer : null
                 }).ToList()
             };
 

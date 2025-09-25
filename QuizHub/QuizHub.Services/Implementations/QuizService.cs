@@ -73,21 +73,41 @@ namespace QuizHub.Services.Implementations
             if (quiz == null)
                 throw new KeyNotFoundException("Quiz not found");
 
-            int correctCount = 0;
+            int score = 0;
+            int totalQuestions = quiz.Questions.Count;
+
             var questionResults = new List<QuestionResultServiceDto>();
 
             foreach (var userAnswer in dto.Answers)
             {
                 var question = quiz.Questions.First(q => q.Id == userAnswer.QuestionId);
                 var correctOptionIds = question.AnswerOptions.Where(a => a.IsCorrect).Select(a => a.Id).ToList();
+
                 bool isCorrect = false;
+                string? correctTextAnswer = null;
 
-                if (question.Type == QuestionType.FillInTheBlank)
-                    isCorrect = userAnswer.TextAnswer?.Trim().ToLower() == correctOptionIds.FirstOrDefault().ToString();
-                else
-                    isCorrect = userAnswer.SelectedAnswerIds.OrderBy(x => x).SequenceEqual(correctOptionIds.OrderBy(x => x));
+                switch (question.Type)
+                {
+                    case QuestionType.FillInTheBlank:
+                        correctTextAnswer = question.AnswerOptions.FirstOrDefault(a => a.IsCorrect)?.Text;
+                        isCorrect = string.Equals(
+                            userAnswer.TextAnswer?.Trim(),
+                            correctTextAnswer?.Trim(),
+                            StringComparison.OrdinalIgnoreCase
+                        );
+                        break;
 
-                if (isCorrect) correctCount++;
+                    case QuestionType.SingleChoice:
+                    case QuestionType.MultipleChoice:
+                    case QuestionType.TrueFalse:
+                        isCorrect = userAnswer.SelectedAnswerIds
+                            .OrderBy(x => x)
+                            .SequenceEqual(correctOptionIds.OrderBy(x => x));
+                        break;
+                }
+
+                if (isCorrect)
+                    score += 1; // each question = 1 point
 
                 questionResults.Add(new QuestionResultServiceDto
                 {
@@ -97,17 +117,17 @@ namespace QuizHub.Services.Implementations
                     SelectedAnswerIds = userAnswer.SelectedAnswerIds,
                     CorrectAnswerIds = correctOptionIds,
                     UserTextAnswer = userAnswer.TextAnswer,
-                    CorrectTextAnswer = null
+                    CorrectTextAnswer = correctTextAnswer
                 });
             }
 
-            double percentage = ((double)correctCount / quiz.Questions.Count) * 100;
+            double percentage = totalQuestions > 0 ? ((double)score / totalQuestions) * 100 : 0;
 
             var result = new QuizResult
             {
                 UserId = userId,
                 QuizId = quiz.Id,
-                Score = correctCount,
+                Score = score,
                 Percentage = percentage,
                 CompletedAt = DateTime.UtcNow,
                 Duration = TimeSpan.FromSeconds(dto.DurationSeconds)
@@ -120,12 +140,16 @@ namespace QuizHub.Services.Implementations
             {
                 QuizId = quiz.Id,
                 QuizTitle = quiz.Title,
-                TotalQuestions = quiz.Questions.Count,
-                CorrectAnswers = correctCount,
+                TotalQuestions = totalQuestions,
+                CorrectAnswers = score,
                 ScorePercentage = percentage,
+                CompletedAt = result.CompletedAt,
+                Duration = result.Duration,
                 QuestionResults = questionResults
             };
         }
+
+
         public async Task<List<QuizResultResponseServiceDto>> GetUserResultsAsync(int userId)
         {
             var results = await _context.QuizResults
@@ -210,7 +234,7 @@ namespace QuizHub.Services.Implementations
                 if (string.IsNullOrWhiteSpace(qDto.Text))
                     throw new InvalidOperationException("Question text is required.");
 
-                if (qDto.QuestionType == "FillIn")
+                if (qDto.QuestionType == "FillInTheBlank")
                 {
                     if (string.IsNullOrWhiteSpace(qDto.TextAnswer))
                         throw new InvalidOperationException("Fill-in questions must have an answer.");
@@ -250,16 +274,15 @@ namespace QuizHub.Services.Implementations
                             "SingleChoice" => QuestionType.SingleChoice,
                             "MultipleChoice" => QuestionType.MultipleChoice,
                             "TrueFalse" => QuestionType.TrueFalse,
-                            "FillIn" => QuestionType.FillInTheBlank,
+                            "FillInTheBlank" => QuestionType.FillInTheBlank,
                             _ => QuestionType.SingleChoice
                         },
-                        Points = qDto.Points,
                         AnswerOptions = qDto.AnswerOptions?.Select(aoDto => new AnswerOption
                         {
                             Text = aoDto.Text,
                             IsCorrect = aoDto.IsCorrect
                         }).ToList() ?? new List<AnswerOption>(),
-                        TextAnswer = qDto.QuestionType == "FillIn" ? qDto.TextAnswer : null
+                        TextAnswer = qDto.QuestionType == "FillInTheBlank" ? qDto.TextAnswer : null
                     }).ToList()
                 };
 

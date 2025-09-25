@@ -46,7 +46,6 @@ input[type="password"] {
   height: 2rem;
 }
 
-/* File input contained and stacked */
 div > input[type="file"] {
   width: 100%;
   height: 2.5rem;
@@ -54,7 +53,6 @@ div > input[type="file"] {
   display: block;
 }
 
-/* Button styling */
 button {
   padding: 10px;
   border: none;
