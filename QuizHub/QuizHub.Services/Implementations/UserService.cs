@@ -40,7 +40,7 @@ namespace QuizHub.Services.Implementations
                 Email = userDto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDto.Password),
                 ProfilePictureUrl = profileImageUrl,
-                Role = "User" // default role
+                Role = "User"
             };
 
             _context.Users.Add(user);

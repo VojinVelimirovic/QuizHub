@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QuizHub.Api.DTOs.Users;
 using QuizHub.Services.DTOs.Users;
 using QuizHub.Services.Interfaces;
 using System;

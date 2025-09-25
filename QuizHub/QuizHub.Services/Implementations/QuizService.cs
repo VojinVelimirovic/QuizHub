@@ -78,6 +78,17 @@ namespace QuizHub.Services.Implementations
 
             var questionResults = new List<QuestionResultServiceDto>();
 
+            var quizResult = new QuizResult
+            {
+                UserId = userId,
+                QuizId = quiz.Id,
+                CompletedAt = DateTime.UtcNow,
+                Duration = TimeSpan.FromSeconds(dto.DurationSeconds),
+            };
+
+            _context.QuizResults.Add(quizResult);
+            await _context.SaveChangesAsync();
+
             foreach (var userAnswer in dto.Answers)
             {
                 var question = quiz.Questions.First(q => q.Id == userAnswer.QuestionId);
@@ -95,19 +106,51 @@ namespace QuizHub.Services.Implementations
                             correctTextAnswer?.Trim(),
                             StringComparison.OrdinalIgnoreCase
                         );
+
+                        _context.QuizResultAnswers.Add(new QuizResultAnswer
+                        {
+                            QuizResultId = quizResult.Id,
+                            QuestionId = question.Id,
+                            TextAnswer = userAnswer.TextAnswer
+                        });
                         break;
 
                     case QuestionType.SingleChoice:
-                    case QuestionType.MultipleChoice:
                     case QuestionType.TrueFalse:
                         isCorrect = userAnswer.SelectedAnswerIds
                             .OrderBy(x => x)
                             .SequenceEqual(correctOptionIds.OrderBy(x => x));
+
+                        if (userAnswer.SelectedAnswerIds.Any())
+                        {
+                            _context.QuizResultAnswers.Add(new QuizResultAnswer
+                            {
+                                QuizResultId = quizResult.Id,
+                                QuestionId = question.Id,
+                                AnswerOptionId = userAnswer.SelectedAnswerIds.First()
+                            });
+                        }
+                        break;
+
+                    case QuestionType.MultipleChoice:
+                        isCorrect = userAnswer.SelectedAnswerIds
+                            .OrderBy(x => x)
+                            .SequenceEqual(correctOptionIds.OrderBy(x => x));
+
+                        foreach (var selectedId in userAnswer.SelectedAnswerIds)
+                        {
+                            _context.QuizResultAnswers.Add(new QuizResultAnswer
+                            {
+                                QuizResultId = quizResult.Id,
+                                QuestionId = question.Id,
+                                AnswerOptionId = selectedId
+                            });
+                        }
                         break;
                 }
 
                 if (isCorrect)
-                    score += 1; // each question = 1 point
+                    score++;
 
                 questionResults.Add(new QuestionResultServiceDto
                 {
@@ -121,19 +164,9 @@ namespace QuizHub.Services.Implementations
                 });
             }
 
-            double percentage = totalQuestions > 0 ? ((double)score / totalQuestions) * 100 : 0;
+            quizResult.Score = score;
+            quizResult.Percentage = totalQuestions > 0 ? ((double)score / totalQuestions) * 100 : 0;
 
-            var result = new QuizResult
-            {
-                UserId = userId,
-                QuizId = quiz.Id,
-                Score = score,
-                Percentage = percentage,
-                CompletedAt = DateTime.UtcNow,
-                Duration = TimeSpan.FromSeconds(dto.DurationSeconds)
-            };
-
-            _context.QuizResults.Add(result);
             await _context.SaveChangesAsync();
 
             return new QuizResultResponseServiceDto
@@ -142,12 +175,13 @@ namespace QuizHub.Services.Implementations
                 QuizTitle = quiz.Title,
                 TotalQuestions = totalQuestions,
                 CorrectAnswers = score,
-                ScorePercentage = percentage,
-                CompletedAt = result.CompletedAt,
-                Duration = result.Duration,
+                ScorePercentage = quizResult.Percentage,
+                CompletedAt = quizResult.CompletedAt,
+                Duration = quizResult.Duration,
                 QuestionResults = questionResults
             };
         }
+
 
 
         public async Task<List<QuizResultResponseServiceDto>> GetUserResultsAsync(int userId)
@@ -155,24 +189,72 @@ namespace QuizHub.Services.Implementations
             var results = await _context.QuizResults
                 .Include(r => r.Quiz)
                     .ThenInclude(q => q.Questions)
+                        .ThenInclude(q => q.AnswerOptions)
+                .Include(r => r.Answers)
+                    .ThenInclude(a => a.AnswerOption)
                 .Where(r => r.UserId == userId)
                 .OrderByDescending(r => r.CompletedAt)
+                .AsNoTracking()
                 .ToListAsync();
 
             var mappedResults = new List<QuizResultResponseServiceDto>();
 
             foreach (var result in results)
             {
-                var questionResults = result.Quiz.Questions.Select(q => new QuestionResultServiceDto
+                var questionResults = new List<QuestionResultServiceDto>();
+
+                foreach (var question in result.Quiz.Questions)
                 {
-                    QuestionId = q.Id,
-                    QuestionText = q.Text,
-                    IsCorrect = true,
-                    SelectedAnswerIds = new List<int>(),
-                    CorrectAnswerIds = q.AnswerOptions.Where(a => a.IsCorrect).Select(a => a.Id).ToList(),
-                    UserTextAnswer = null,
-                    CorrectTextAnswer = null
-                }).ToList();
+                    var userAnswers = result.Answers.Where(a => a.QuestionId == question.Id).ToList();
+                    var selectedIds = userAnswers.Where(a => a.AnswerOptionId.HasValue)
+                                                 .Select(a => a.AnswerOptionId!.Value)
+                                                 .ToList();
+                    var userTextAnswer = userAnswers.FirstOrDefault(a => a.TextAnswer != null)?.TextAnswer;
+
+                    var correctOptionIds = question.AnswerOptions.Where(a => a.IsCorrect).Select(a => a.Id).ToList();
+                    var correctTextAnswer = question.Type == QuestionType.FillInTheBlank
+                        ? question.AnswerOptions.FirstOrDefault(a => a.IsCorrect)?.Text
+                        : null;
+
+                    bool isCorrect = false;
+                    switch (question.Type)
+                    {
+                        case QuestionType.FillInTheBlank:
+                            isCorrect = string.Equals(
+                                userTextAnswer?.Trim() ?? "",
+                                correctTextAnswer?.Trim() ?? "",
+                                StringComparison.OrdinalIgnoreCase
+                            );
+                            break;
+                        default:
+                            isCorrect = selectedIds.OrderBy(x => x).SequenceEqual(correctOptionIds.OrderBy(x => x));
+                            break;
+                    }
+                    var selectedAnswerTexts = question.AnswerOptions
+                        .Where(a => selectedIds.Contains(a.Id))
+                        .Select(a => a.Text ?? "")
+                        .Where(text => !string.IsNullOrEmpty(text))
+                        .ToList();
+
+                    var correctAnswerTexts = question.AnswerOptions
+                        .Where(a => a.IsCorrect)
+                        .Select(a => a.Text ?? "")
+                        .Where(text => !string.IsNullOrEmpty(text))
+                        .ToList();
+
+                    questionResults.Add(new QuestionResultServiceDto
+                    {
+                        QuestionId = question.Id,
+                        QuestionText = question.Text,
+                        IsCorrect = isCorrect,
+                        SelectedAnswerIds = selectedIds,
+                        SelectedAnswerTexts = selectedAnswerTexts,
+                        CorrectAnswerIds = correctOptionIds,
+                        CorrectAnswerTexts = correctAnswerTexts,
+                        UserTextAnswer = userTextAnswer,
+                        CorrectTextAnswer = correctTextAnswer
+                    });
+                }
 
                 mappedResults.Add(new QuizResultResponseServiceDto
                 {
@@ -181,14 +263,15 @@ namespace QuizHub.Services.Implementations
                     TotalQuestions = result.Quiz.Questions.Count,
                     CorrectAnswers = result.Score,
                     ScorePercentage = result.Percentage,
-                    QuestionResults = questionResults,
                     CompletedAt = result.CompletedAt,
-                    Duration = result.Duration
+                    Duration = result.Duration,
+                    QuestionResults = questionResults
                 });
             }
 
             return mappedResults;
         }
+
 
         public async Task<List<QuizResultResponseServiceDto>> GetQuizLeaderboardAsync(int quizId, int top = 10)
         {

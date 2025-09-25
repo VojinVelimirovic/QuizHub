@@ -155,53 +155,59 @@ export default function QuizPage() {
 
             <div className="question-results">
               <h4>Question Review</h4>
-              {quizResult.questionResults.map((qResult, index) => (
-                <div key={qResult.questionId} className={`question-result ${qResult.isCorrect ? 'correct' : 'incorrect'}`}>
-                  <div className="question-header">
-                    <span className="question-number">Question {index + 1}</span>
-                    <span className={`result-indicator ${qResult.isCorrect ? 'correct' : 'incorrect'}`}>
-                      {qResult.isCorrect ? '✓ Correct' : '✗ Incorrect'}
-                    </span>
-                  </div>
-                  <p className="question-text">{qResult.questionText}</p>
-                  
-                  {qResult.userTextAnswer && (
-                    <div className="text-answer-review">
-                      <p><strong>Your answer:</strong> {qResult.userTextAnswer}</p>
-                      {!qResult.isCorrect && (
-                        <p><strong>Correct answer:</strong> {qResult.correctTextAnswer}</p>
-                      )}
-                    </div>
-                  )}
+              {quizResult.questionResults.map((qResult, index) => {
+                const selected = qResult.selectedAnswerIds || [];
+                const correct = qResult.correctAnswerIds || [];
 
-                  {qResult.selectedAnswerIds.length > 0 && (
-                    <div className="multiple-choice-review">
-                      <p><strong>Your selection:</strong></p>
-                      <div className="selected-answers">
-                        {quiz.questions.find(q => q.id === qResult.questionId)?.answerOptions
-                          .filter(opt => qResult.selectedAnswerIds.includes(opt.id))
-                          .map(opt => (
-                            <span key={opt.id} className="user-answer">{opt.text}</span>
-                          ))
-                        }
-                      </div>
-                      {!qResult.isCorrect && (
-                        <>
-                          <p><strong>Correct answer(s):</strong></p>
-                          <div className="correct-answers">
-                            {quiz.questions.find(q => q.id === qResult.questionId)?.answerOptions
-                              .filter(opt => qResult.correctAnswerIds.includes(opt.id))
-                              .map(opt => (
-                                <span key={opt.id} className="correct-answer">{opt.text}</span>
-                              ))
-                            }
-                          </div>
-                        </>
-                      )}
+                return (
+                  <div key={qResult.questionId} className={`question-result ${qResult.isCorrect ? 'correct' : 'incorrect'}`}>
+                    <div className="question-header">
+                      <span className="question-number">Question {index + 1}</span>
+                      <span className={`result-indicator ${qResult.isCorrect ? 'correct' : 'incorrect'}`}>
+                        {qResult.isCorrect ? '✓ Correct' : '✗ Incorrect'}
+                      </span>
                     </div>
-                  )}
-                </div>
-              ))}
+
+                    <p className="question-text">{qResult.questionText}</p>
+
+                    {qResult.userTextAnswer !== undefined && (
+                      <div className="text-answer-review">
+                        <p><strong>Your answer:</strong> {qResult.userTextAnswer || '(No answer)'}</p>
+                        <p><strong>Correct answer:</strong> {qResult.correctTextAnswer}</p>
+                      </div>
+                    )}
+
+                    {(selected.length > 0 || correct.length > 0) && (
+                      <div className="multiple-choice-review">
+                        {selected.length > 0 && (
+                          <>
+                            <p><strong>Your selection:</strong></p>
+                            <div className="selected-answers">
+                              {quiz.questions.find(q => q.id === qResult.questionId)?.answerOptions
+                                .filter(opt => selected.includes(opt.id))
+                                .map(opt => <span key={opt.id} className="user-answer">{opt.text}</span>)
+                              }
+                            </div>
+                          </>
+                        )}
+                        {correct.length > 0 && (
+                          <>
+                            <p><strong>Correct answer(s):</strong></p>
+                            <div className="correct-answers">
+                              {quiz.questions.find(q => q.id === qResult.questionId)?.answerOptions
+                                .filter(opt => correct.includes(opt.id))
+                                .map(opt => <span key={opt.id} className="correct-answer">{opt.text}</span>)
+                              }
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+
             </div>
 
             <div className="result-actions">

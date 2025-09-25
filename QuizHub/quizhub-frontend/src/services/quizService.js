@@ -50,3 +50,18 @@ export const submitQuiz = async (submissionData) => {
     throw error;
   }
 };
+
+export const getUserResults = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('No authentication token found');
+
+    const response = await axios.get(`${API_URL}/user-results`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (err) {
+    console.error('Error fetching user results:', err);
+    throw err;
+  }
+};

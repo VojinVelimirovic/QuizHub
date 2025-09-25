@@ -15,6 +15,8 @@ namespace QuizHub.Data.Context
         public DbSet<Question> Questions { get; set; } = null!;
         public DbSet<AnswerOption> AnswerOptions { get; set; } = null!;
         public DbSet<QuizResult> QuizResults { get; set; } = null!;
+        public DbSet<QuizResultAnswer> QuizResultAnswers { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,6 +52,22 @@ namespace QuizHub.Data.Context
                 .HasOne(r => r.Quiz)
                 .WithMany(q => q.QuizResults)
                 .HasForeignKey(r => r.QuizId);
+
+            modelBuilder.Entity<QuizResultAnswer>(b =>
+            {
+                b.HasKey(a => a.Id);
+
+                b.HasOne(a => a.QuizResult)
+                 .WithMany(r => r.Answers)
+                 .HasForeignKey(a => a.QuizResultId)
+                 .OnDelete(DeleteBehavior.Cascade);
+
+                b.HasOne(a => a.AnswerOption)
+                 .WithMany()
+                 .HasForeignKey(a => a.AnswerOptionId)
+                 .OnDelete(DeleteBehavior.Restrict);
+            });
+
         }
     }
 }

@@ -64,7 +64,6 @@ namespace QuizHub.Api.Controllers
         {
             try
             {
-                // Try multiple claim types to find the user ID
                 var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ??
                                  User.FindFirst(JwtRegisteredClaimNames.Sub) ??
                                  User.FindFirst(ClaimTypes.Name);
@@ -92,7 +91,6 @@ namespace QuizHub.Api.Controllers
         [HttpGet("user-results")]
         public async Task<IActionResult> GetUserResults()
         {
-            // Try multiple claim types to find the user ID
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ??
                              User.FindFirst(JwtRegisteredClaimNames.Sub) ??
                              User.FindFirst(ClaimTypes.Name);
@@ -119,7 +117,6 @@ namespace QuizHub.Api.Controllers
         [HttpPost("full")]
         public async Task<IActionResult> CreateFullQuiz([FromBody] QuizFullCreateDto dto)
         {
-            // Map API DTO → Service DTO
             var serviceDto = new QuizFullCreateServiceDto
             {
                 Title = dto.Title,

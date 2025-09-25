@@ -12,7 +12,6 @@
   margin: 0 auto;
 }
 
-/* Add the scroll container like in CreateQuizPage */
 .quiz-scroll-container {
   max-height: calc(100vh - 80px);
   overflow-y: auto;
@@ -144,7 +143,6 @@
   }
 }
 
-/* Fix the questions container scrolling */
 .questions-container {
   flex: 1;
   overflow-y: auto;
@@ -153,7 +151,6 @@
   padding-right: 0.5rem;
 }
 
-/* Custom scrollbar for questions container */
 .questions-container::-webkit-scrollbar {
   width: 8px;
 }
@@ -216,15 +213,12 @@
 .option-label {
   display: flex;
   align-items: center;
-  /* vertically center input + text */
   gap: 0.5rem;
-  /* space between checkbox/radio and text */
   padding: 0.8rem;
   background: white;
   border-radius: 5px;
   cursor: pointer;
   position: relative;
-  /* ensure hover affects whole label */
 }
 
 .option-label:hover {
@@ -233,11 +227,9 @@
 
 .option-label input {
   margin: 0;
-  /* remove extra margin */
   vertical-align: middle;
   flex-shrink: 0;
   width: 18px;
-  /* optional: fix size for visual consistency */
   height: 18px;
 }
 
@@ -245,14 +237,12 @@
   font-size: 1rem;
   line-height: 1.4;
   display: inline-block;
-  /* ensure text stays inside label */
 }
 
 .option-text {
   font-size: 1rem;
   line-height: 1.4;
   flex: 1;
-  /* Take remaining space */
 }
 
 .fill-in-answer {
@@ -290,16 +280,13 @@
   background-color: var(--secondary-color);
 }
 
-/* Make result screen scrollable */
 .quiz-result {
   background: white;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   max-height: calc(100vh - 150px);
-  /* Limit height */
   overflow-y: auto;
-  /* Add scrolling */
   display: flex;
   flex-direction: column;
 }
@@ -310,7 +297,6 @@
   padding-bottom: 2rem;
   border-bottom: 2px solid var(--background-color);
   flex-shrink: 0;
-  /* Prevent summary from shrinking */
 }
 
 .score-display {
@@ -447,7 +433,6 @@
   gap: 1rem;
   justify-content: center;
   flex-shrink: 0;
-  /* Prevent actions from shrinking */
   padding-top: 1rem;
   border-top: 2px solid var(--background-color);
 }
@@ -472,7 +457,6 @@ button {
   background-color: #5a6268;
 }
 
-/* Custom scrollbar for result container */
 .quiz-result::-webkit-scrollbar {
   width: 8px;
 }

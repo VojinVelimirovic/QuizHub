@@ -5,9 +5,6 @@ using QuizHub.Services.DTOs.Questions;
 using QuizHub.Services.DTOs.QuizResults;
 using QuizHub.Services.DTOs.Quizzes;
 using QuizHub.Services.DTOs.Users;
-//using QuizHub.Services.DTOs.Quizzes;
-//using QuizHub.Services.DTOs.Questions;
-//using QuizHub.Services.DTOs.QuizResults;
 
 namespace QuizHub.Services.Mapping
 {

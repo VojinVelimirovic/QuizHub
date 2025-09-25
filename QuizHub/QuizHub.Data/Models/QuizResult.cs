@@ -17,6 +17,7 @@ namespace QuizHub.Data.Models
         public TimeSpan Duration { get; set; }
         public User User { get; set; } = null!;
         public Quiz Quiz { get; set; } = null!;
+        public ICollection<QuizResultAnswer> Answers { get; set; } = new List<QuizResultAnswer>();
     }
 
 }

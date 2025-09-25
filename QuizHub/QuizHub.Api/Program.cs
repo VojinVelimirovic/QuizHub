@@ -10,12 +10,9 @@ using QuizHub.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-// AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
-// DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -25,7 +22,6 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddHttpContextAccessor();
 
-// JWT Authentication
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]!);
 builder.Services.AddAuthentication(options =>
 {
@@ -46,10 +42,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Add controllers
 builder.Services.AddControllers();
 
-// CORS
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -60,13 +54,11 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -85,7 +77,6 @@ app.UseHttpsRedirection();
 
 app.UseCors();
 
-// **Enable Authentication and Authorization**
 app.UseAuthentication();
 app.UseAuthorization();
 
