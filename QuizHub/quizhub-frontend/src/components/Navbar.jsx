@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { FiLogOut, FiPlus } from "react-icons/fi";
 import "../styles/Navbar.css";
+import logo from "../assets/quizhub-logo.png";
 
 export default function Navbar() {
   const { user, logoutUser } = useContext(AuthContext);
@@ -23,7 +24,13 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="profile-section">
+      <div className="navbar-left">
+        <img
+          src={logo}
+          alt="QuizHub Logo"
+          className="navbar-logo"
+          onClick={() => navigate("/quizzes")}
+        />
         <div className="profile" onClick={handleProfileClick}>
           <img src={`https://localhost:7208${user?.profilePictureUrl}` || "/default-profile.png"} alt="Profile" />
           <span>{user?.username}</span>

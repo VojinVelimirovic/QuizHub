@@ -87,9 +87,9 @@ export default function Quizzes() {
                 <h3>{q.title}</h3>
                 <p>{q.description}</p>
                 <div className="quiz-info">
-                  <span>Questions: {q.questionCount}</span>
-                  <span>Difficulty: {difficultyMap[q.difficulty]}</span>
-                  <span>Time: {q.timeLimitMinutes} min</span>
+                  <span>Questions: <br/>{q.questionCount}</span>
+                  <span>Difficulty: <br/>{difficultyMap[q.difficulty]}</span>
+                  <span>Time: <br/>{q.timeLimitMinutes} min</span>
                 </div>
               </div>
             ))}

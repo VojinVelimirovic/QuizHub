@@ -37,7 +37,7 @@ export default function Login() {
       <input type="password" name="password" placeholder="Password" value={form.password} onChange={handleChange} />
       {error && <p className="error">{error}</p>}
       <button type="submit">Login</button>
-      <p>Don't have an account? <Link to="/register">Register here.</Link></p>
+      <p>Don't have an account? <br/><Link to="/register">Register here.</Link></p>
     </form>
   );
 }

@@ -52,7 +52,7 @@ export default function Register() {
       </div>
       {error && <p className="error">{error}</p>}
       <button type="submit">Register</button>
-      <p>Already have an account? <Link to="/login">Login here.</Link></p>
+      <p>Already have an account? <br/><Link to="/login">Login here.</Link></p>
     </form>
   );
 }
