@@ -22,15 +22,18 @@ namespace QuizHub.Services.Mapping
 
             CreateMap<Quiz, QuizResponseServiceDto>()
                 .ForMember(dest => dest.QuestionCount, opt => opt.MapFrom(src => src.Questions.Count))
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
-            CreateMap<Quiz, QuizDetailServiceDto>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
-                .ForMember(dest => dest.Difficulty,
-                opt => opt.MapFrom(src =>
+                .ForMember(dest => dest.Difficulty, opt => opt.MapFrom(src =>
                     src.Difficulty == 1 ? "Easy" :
                     src.Difficulty == 2 ? "Medium" :
-                    src.Difficulty == 3 ? "Hard" :
-                    "Unknown"));
+                    src.Difficulty == 3 ? "Hard" : "Easy"));
+
+            CreateMap<Quiz, QuizDetailServiceDto>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+                .ForMember(dest => dest.Difficulty, opt => opt.MapFrom(src =>
+                    src.Difficulty == 1 ? "Easy" :
+                    src.Difficulty == 2 ? "Medium" :
+                    src.Difficulty == 3 ? "Hard" : "Easy"));
 
             // Questions
             CreateMap<Question, QuestionServiceDto>()

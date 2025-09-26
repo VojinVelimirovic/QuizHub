@@ -35,7 +35,7 @@ export default function QuizPage() {
       try {
         const data = await getQuizById(id);
         setQuiz(data);
-        setTimeRemaining(data.timeLimitMinutes * 60); // Convert to seconds
+        setTimeRemaining(data.timeLimitMinutes * 60);
       } catch (err) {
         console.error("Failed to fetch quiz:", err);
       }
@@ -105,6 +105,7 @@ export default function QuizPage() {
     };
 
     const result = await submitQuiz(submissionData);
+    console.log(result)
     setQuizResult(result);
     setIsTakingQuiz(false);
   } catch (err) {

@@ -27,7 +27,9 @@ namespace QuizHub.Services.Implementations
         {
             var quizzes = await _context.Quizzes
                 .Include(q => q.Category)
-                .Include(q => q.Questions)
+                .Include(q => q.Questions.Where(q => q.IsActive))
+                .Where(q => q.IsActive) // Only include active quizzes
+                .Where(q => q.Questions.Any(q => q.IsActive)) // Only include quizzes with active questions
                 .ToListAsync();
 
             return _mapper.Map<List<QuizResponseServiceDto>>(quizzes);
@@ -37,14 +39,40 @@ namespace QuizHub.Services.Implementations
         {
             var quiz = await _context.Quizzes
                 .Include(q => q.Category)
-                .Include(q => q.Questions)
-                    .ThenInclude(qt => qt.AnswerOptions)
+                .Include(q => q.Questions.Where(q => q.IsActive))  // Filter active questions
+                    .ThenInclude(qt => qt.AnswerOptions.Where(ao => ao.IsActive))  // Filter active answers
+                .Where(q => q.IsActive) // Only return active quizzes
                 .FirstOrDefaultAsync(q => q.Id == quizId);
 
             if (quiz == null)
                 throw new KeyNotFoundException("Quiz not found");
 
-            return _mapper.Map<QuizDetailServiceDto>(quiz);
+            return new QuizDetailServiceDto
+            {
+                Id = quiz.Id,
+                Title = quiz.Title,
+                Description = quiz.Description,
+                CategoryId = quiz.CategoryId,
+                CategoryName = quiz.Category.Name,
+                TimeLimitMinutes = quiz.TimeLimitMinutes,
+                Difficulty = quiz.Difficulty == 1 ? "Easy" :
+                 quiz.Difficulty == 2 ? "Medium" : "Hard",
+                Questions = quiz.Questions.Select(q => new QuestionServiceDto
+                {
+                    Id = q.Id,
+                    Text = q.Text,
+                    QuestionType = q.Type.ToString(),
+                    TextAnswer = q.Type == QuestionType.FillInTheBlank ? q.TextAnswer : null,
+                    AnswerOptions = q.Type != QuestionType.FillInTheBlank
+                        ? q.AnswerOptions.Select(ao => new AnswerOptionServiceDto
+                        {
+                            Id = ao.Id,
+                            Text = ao.Text,
+                            IsCorrect = ao.IsCorrect
+                        }).ToList()
+                        : new List<AnswerOptionServiceDto>()
+                }).ToList()
+            };
         }
 
         public async Task<QuizResponseServiceDto> CreateQuizAsync(QuizCreateServiceDto dto)
@@ -57,6 +85,7 @@ namespace QuizHub.Services.Implementations
                 "hard" => 3,
                 _ => 1
             };
+            quiz.IsActive = true; // New quizzes are always active
             _context.Quizzes.Add(quiz);
             await _context.SaveChangesAsync();
 
@@ -66,12 +95,13 @@ namespace QuizHub.Services.Implementations
         public async Task<QuizResultResponseServiceDto> SubmitQuizAsync(int userId, QuizResultCreateServiceDto dto)
         {
             var quiz = await _context.Quizzes
-                .Include(q => q.Questions)
-                    .ThenInclude(qt => qt.AnswerOptions)
+                .Include(q => q.Questions.Where(q => q.IsActive))  // Only active questions
+                    .ThenInclude(qt => qt.AnswerOptions.Where(ao => ao.IsActive))  // Only active answers
+                .Where(q => q.IsActive) // Only allow taking active quizzes
                 .FirstOrDefaultAsync(q => q.Id == dto.QuizId);
 
             if (quiz == null)
-                throw new KeyNotFoundException("Quiz not found");
+                throw new KeyNotFoundException("Quiz not found or is inactive");
 
             int score = 0;
             int totalQuestions = quiz.Questions.Count;
@@ -91,7 +121,9 @@ namespace QuizHub.Services.Implementations
 
             foreach (var userAnswer in dto.Answers)
             {
-                var question = quiz.Questions.First(q => q.Id == userAnswer.QuestionId);
+                var question = quiz.Questions.FirstOrDefault(q => q.Id == userAnswer.QuestionId);
+                if (question == null) continue; // Skip if question is inactive
+
                 var correctOptionIds = question.AnswerOptions.Where(a => a.IsCorrect).Select(a => a.Id).ToList();
 
                 bool isCorrect = false;
@@ -100,7 +132,7 @@ namespace QuizHub.Services.Implementations
                 switch (question.Type)
                 {
                     case QuestionType.FillInTheBlank:
-                        correctTextAnswer = question.AnswerOptions.FirstOrDefault(a => a.IsCorrect)?.Text;
+                        correctTextAnswer = question.TextAnswer;
                         isCorrect = string.Equals(
                             userAnswer.TextAnswer?.Trim(),
                             correctTextAnswer?.Trim(),
@@ -182,17 +214,16 @@ namespace QuizHub.Services.Implementations
             };
         }
 
-
-
         public async Task<List<QuizResultResponseServiceDto>> GetUserResultsAsync(int userId)
         {
             var results = await _context.QuizResults
                 .Include(r => r.Quiz)
-                    .ThenInclude(q => q.Questions)
-                        .ThenInclude(q => q.AnswerOptions)
+                    .ThenInclude(q => q.Questions.Where(q => q.IsActive))  // Only active questions
+                        .ThenInclude(q => q.AnswerOptions.Where(ao => ao.IsActive))  // Only active answers
                 .Include(r => r.Answers)
                     .ThenInclude(a => a.AnswerOption)
                 .Where(r => r.UserId == userId)
+                .Where(r => r.Quiz.IsActive) // Only include results from active quizzes
                 .OrderByDescending(r => r.CompletedAt)
                 .AsNoTracking()
                 .ToListAsync();
@@ -272,13 +303,15 @@ namespace QuizHub.Services.Implementations
             return mappedResults;
         }
 
-
         public async Task<List<LeaderboardEntryDto>> GetQuizLeaderboardAsync(int quizId, int top = 10, string timeFilter = "all", int? currentUserId = null)
         {
             var query = _context.QuizResults
                 .Include(r => r.User)
                 .Include(r => r.Quiz)
-                .Where(r => r.QuizId == quizId);
+                    .ThenInclude(q => q.Questions.Where(q => q.IsActive))  // Only active questions for count
+                .Where(r => r.QuizId == quizId)
+                .Where(r => r.Quiz.IsActive); // Only include results from active quizzes
+
             query = timeFilter.ToLower() switch
             {
                 "day" => query.Where(r => r.CompletedAt >= DateTime.UtcNow.AddDays(-1)),
@@ -296,13 +329,14 @@ namespace QuizHub.Services.Implementations
                 {
                     Username = r.User.Username,
                     CorrectAnswers = r.Score,
-                    TotalQuestions = r.Quiz.Questions.Count,
+                    TotalQuestions = r.Quiz.Questions.Count(q => q.IsActive),  // Count only active questions
                     ScorePercentage = r.Percentage,
                     CompletedAt = r.CompletedAt,
                     Duration = r.Duration,
                     IsCurrentUser = currentUserId.HasValue && r.UserId == currentUserId.Value
                 })
                 .ToListAsync();
+
             for (int i = 0; i < results.Count; i++)
             {
                 results[i].Rank = i + 1;
@@ -310,8 +344,6 @@ namespace QuizHub.Services.Implementations
 
             return results;
         }
-
-
 
         public async Task<QuizResponseServiceDto> CreateFullQuizAsync(QuizFullCreateServiceDto dto)
         {
@@ -351,6 +383,7 @@ namespace QuizHub.Services.Implementations
                     Description = dto.Description,
                     CategoryId = dto.CategoryId,
                     TimeLimitMinutes = dto.TimeLimitMinutes,
+                    IsActive = true, // New quizzes are always active
                     Difficulty = dto.Difficulty?.ToLower() switch
                     {
                         "easy" => 1,
@@ -369,10 +402,12 @@ namespace QuizHub.Services.Implementations
                             "FillInTheBlank" => QuestionType.FillInTheBlank,
                             _ => QuestionType.SingleChoice
                         },
+                        IsActive = true,  // New questions are always active
                         AnswerOptions = qDto.AnswerOptions?.Select(aoDto => new AnswerOption
                         {
                             Text = aoDto.Text,
-                            IsCorrect = aoDto.IsCorrect
+                            IsCorrect = aoDto.IsCorrect,
+                            IsActive = true  // New answers are always active
                         }).ToList() ?? new List<AnswerOption>(),
                         TextAnswer = qDto.QuestionType == "FillInTheBlank" ? qDto.TextAnswer : null
                     }).ToList()
@@ -389,5 +424,170 @@ namespace QuizHub.Services.Implementations
                 throw;
             }
         }
+
+        public async Task DeleteQuizAsync(int quizId)
+        {
+            var quiz = await _context.Quizzes
+                .FirstOrDefaultAsync(q => q.Id == quizId);
+
+            if (quiz == null)
+                throw new KeyNotFoundException("Quiz not found");
+
+            // Soft delete - set IsActive to false instead of removing
+            quiz.IsActive = false;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<QuizResponseServiceDto> UpdateFullQuizAsync(int quizId, QuizFullUpdateServiceDto dto)
+        {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
+            try
+            {
+                var quiz = await _context.Quizzes
+                    .Include(q => q.Questions)
+                        .ThenInclude(qt => qt.AnswerOptions)
+                    .Where(q => q.IsActive) // Only update active quizzes
+                    .FirstOrDefaultAsync(q => q.Id == quizId);
+
+                if (quiz == null) throw new KeyNotFoundException("Quiz not found or is inactive");
+
+                // Update quiz basic info
+                quiz.Title = dto.Title;
+                quiz.Description = dto.Description;
+                quiz.CategoryId = dto.CategoryId;
+                quiz.TimeLimitMinutes = dto.TimeLimitMinutes;
+                quiz.Difficulty = dto.Difficulty?.ToLower() switch
+                {
+                    "easy" => 1,
+                    "medium" => 2,
+                    "hard" => 3,
+                    _ => 1
+                };
+
+                // 1️⃣ Handle deleted answer options - SOFT DELETE
+                if (dto.DeletedAnswerIds != null && dto.DeletedAnswerIds.Any())
+                {
+                    var answersToDeactivate = await _context.AnswerOptions
+                        .Where(ao => dto.DeletedAnswerIds.Contains(ao.Id))
+                        .ToListAsync();
+
+                    foreach (var answer in answersToDeactivate)
+                    {
+                        answer.IsActive = false;
+                    }
+                }
+
+                var existingQuestionIds = quiz.Questions.Select(q => q.Id).ToHashSet();
+
+                foreach (var qDto in dto.Questions)
+                {
+                    Question question;
+
+                    if (qDto.Id.HasValue && existingQuestionIds.Contains(qDto.Id.Value))
+                    {
+                        // Update existing question
+                        question = quiz.Questions.First(q => q.Id == qDto.Id.Value);
+                        question.Text = qDto.Text;
+                        question.Type = qDto.QuestionType switch
+                        {
+                            "SingleChoice" => QuestionType.SingleChoice,
+                            "MultipleChoice" => QuestionType.MultipleChoice,
+                            "TrueFalse" => QuestionType.TrueFalse,
+                            "FillInTheBlank" => QuestionType.FillInTheBlank,
+                            _ => QuestionType.SingleChoice
+                        };
+                        question.TextAnswer = qDto.QuestionType == "FillInTheBlank" ? qDto.TextAnswer : null;
+                        question.IsActive = true; // Ensure it's active
+
+                        var existingOptionIds = question.AnswerOptions.Select(o => o.Id).ToHashSet();
+
+                        foreach (var aoDto in qDto.AnswerOptions)
+                        {
+                            if (aoDto.Id.HasValue && existingOptionIds.Contains(aoDto.Id.Value))
+                            {
+                                var ao = question.AnswerOptions.First(o => o.Id == aoDto.Id.Value);
+                                ao.Text = aoDto.Text;
+                                ao.IsCorrect = aoDto.IsCorrect;
+                                ao.IsActive = true; // Reactivate if it was previously deactivated
+                            }
+                            else
+                            {
+                                question.AnswerOptions.Add(new AnswerOption
+                                {
+                                    Text = aoDto.Text,
+                                    IsCorrect = aoDto.IsCorrect,
+                                    IsActive = true
+                                });
+                            }
+                        }
+
+                        // Soft delete answer options not in DTO (skip new options with Id = 0)
+                        var dtoOptionIds = qDto.AnswerOptions.Where(o => o.Id.HasValue).Select(o => o.Id!.Value).ToHashSet();
+                        var optionsToDeactivate = question.AnswerOptions
+                            .Where(o => o.Id != 0 && !dtoOptionIds.Contains(o.Id))
+                            .ToList();
+
+                        foreach (var option in optionsToDeactivate)
+                        {
+                            option.IsActive = false;
+                        }
+                    }
+                    else
+                    {
+                        // Add new question
+                        question = new Question
+                        {
+                            Text = qDto.Text,
+                            Type = qDto.QuestionType switch
+                            {
+                                "SingleChoice" => QuestionType.SingleChoice,
+                                "MultipleChoice" => QuestionType.MultipleChoice,
+                                "TrueFalse" => QuestionType.TrueFalse,
+                                "FillInTheBlank" => QuestionType.FillInTheBlank,
+                                _ => QuestionType.SingleChoice
+                            },
+                            TextAnswer = qDto.QuestionType == "FillInTheBlank" ? qDto.TextAnswer : null,
+                            IsActive = true,
+                            AnswerOptions = qDto.AnswerOptions.Select(aoDto => new AnswerOption
+                            {
+                                Text = aoDto.Text,
+                                IsCorrect = aoDto.IsCorrect,
+                                IsActive = true
+                            }).ToList()
+                        };
+                        quiz.Questions.Add(question);
+                    }
+                }
+
+                // Soft delete questions not in DTO (skip new questions with Id = 0)
+                var dtoQuestionIds = dto.Questions.Where(q => q.Id.HasValue).Select(q => q.Id!.Value).ToHashSet();
+                var questionsToDeactivate = quiz.Questions
+                    .Where(q => q.Id != 0 && !dtoQuestionIds.Contains(q.Id))
+                    .ToList();
+
+                foreach (var question in questionsToDeactivate)
+                {
+                    question.IsActive = false;
+                    // Also deactivate all answer options for this question
+                    foreach (var option in question.AnswerOptions)
+                    {
+                        option.IsActive = false;
+                    }
+                }
+
+                _context.Quizzes.Update(quiz);
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return _mapper.Map<QuizResponseServiceDto>(quiz);
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
+
     }
 }

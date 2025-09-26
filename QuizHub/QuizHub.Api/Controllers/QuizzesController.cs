@@ -152,5 +152,68 @@ namespace QuizHub.Api.Controllers
             var quiz = await _quizService.CreateFullQuizAsync(serviceDto);
             return Ok(quiz);
         }
+
+        // DELETE: api/quizzes/{id}
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _quizService.DeleteQuizAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound(new { message = "Quiz not found" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        // PATCH: api/quizzes/{id}/full
+        [HttpPatch("{id}/full")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> PatchFull(int id, [FromBody] QuizFullUpdateDto dto)
+        {
+            try
+            {
+                var serviceDto = new QuizFullUpdateServiceDto
+                {
+                    Title = dto.Title,
+                    Description = dto.Description,
+                    CategoryId = dto.CategoryId,
+                    TimeLimitMinutes = dto.TimeLimitMinutes,
+                    Difficulty = dto.Difficulty,
+                    DeletedAnswerIds = dto.DeletedAnswerIds,
+                    Questions = dto.Questions.Select(q => new QuestionUpdateServiceDto
+                    {
+                        Id = q.Id,
+                        Text = q.Text,
+                        QuestionType = q.QuestionType,
+                        AnswerOptions = q.AnswerOptions.Select(ao => new AnswerOptionUpdateServiceDto
+                        {
+                            Id = ao.Id,
+                            Text = ao.Text,
+                            IsCorrect = ao.IsCorrect
+                        }).ToList(),
+                        TextAnswer = q.QuestionType == "FillInTheBlank" ? q.TextAnswer : null
+                    }).ToList()
+                };
+
+                var updated = await _quizService.UpdateFullQuizAsync(id, serviceDto);
+                return Ok(updated);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound(new { message = "Quiz not found" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

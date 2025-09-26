@@ -1,20 +1,13 @@
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { getAllQuizzes } from "../services/quizService";
+import { getAllQuizzes, deleteQuiz } from "../services/quizService";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import "../styles/Quizzes.css";
 
-const difficultyMap = {
-  1: "Easy",
-  2: "Medium",
-  3: "Hard"
-};
-
-const difficultyOptions = [1, 2, 3];
-
 export default function Quizzes() {
-  const { user } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
   const [quizzes, setQuizzes] = useState([]);
   const [filteredQuizzes, setFilteredQuizzes] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -55,6 +48,24 @@ export default function Quizzes() {
 
   const categories = [...new Set(quizzes.map(q => q.categoryName))];
 
+  const handleDelete = async (e, id) => {
+    e.stopPropagation();
+    if (!window.confirm("Delete this quiz?")) return;
+    try {
+      await deleteQuiz(id, token || localStorage.getItem("token"));
+      setQuizzes(prev => prev.filter(q => q.id !== id));
+      setFilteredQuizzes(prev => prev.filter(q => q.id !== id));
+    } catch (err) {
+      console.error("Failed to delete quiz:", err);
+      alert("Delete failed");
+    }
+  };
+
+  const handleEdit = (e, id) => {
+    e.stopPropagation();
+    navigate(`/update-quiz/${id}`);
+  };
+
   return (
     <div className="quizzes-page">
       <Navbar />
@@ -73,9 +84,9 @@ export default function Quizzes() {
           </select>
           <select value={difficultyFilter} onChange={(e) => setDifficultyFilter(e.target.value)}>
             <option value="">All Difficulties</option>
-            {difficultyOptions.map(d => (
-              <option key={d} value={d}>{difficultyMap[d]}</option>
-            ))}
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
           </select>
         </div>
 
@@ -89,11 +100,24 @@ export default function Quizzes() {
                 className="quiz-card clickable"
                 onClick={() => navigate(`/quiz/${q.id}`)}
               >
+                <div className="card-controls" style={{ position: "absolute", right: 10, top: 8, display: "flex", gap: 8 }}>
+                  {user?.role === "Admin" && (
+                    <>
+                      <button className="icon-btn" onClick={(e) => handleEdit(e, q.id)} title="Edit quiz">
+                        <FiEdit2 color="#555" />
+                      </button>
+                      <button className="icon-btn" onClick={(e) => handleDelete(e, q.id)} title="Delete quiz">
+                        <FiTrash2 color="#555" />
+                      </button>
+                    </>
+                  )}
+                </div>
+
                 <h3>{q.title}</h3>
                 <p>{q.description}</p>
                 <div className="quiz-info">
                   <span>Questions: <br/>{q.questionCount}</span>
-                  <span>Difficulty: <br/>{difficultyMap[q.difficulty]}</span>
+                  <span>Difficulty: <br/>{q.difficulty}</span>
                   <span>Time: <br/>{q.timeLimitMinutes} min</span>
                 </div>
               </div>

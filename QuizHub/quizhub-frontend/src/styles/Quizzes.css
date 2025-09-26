@@ -107,3 +107,22 @@
   background-color: rgba(76, 175, 80, 0.1);
   border-radius: 5px;
 }
+
+.clickable {
+  position: relative;
+}
+
+.icon-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ddd;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  background: #f5f5f5;
+}

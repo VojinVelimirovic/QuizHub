@@ -14,6 +14,8 @@ namespace QuizHub.Services.Interfaces
         Task<List<QuizResultResponseServiceDto>> GetUserResultsAsync(int userId);
         Task<List<LeaderboardEntryDto>> GetQuizLeaderboardAsync(int quizId, int top = 10, string timefilter = "all", int? currentUserId = null);
         Task<QuizResponseServiceDto> CreateFullQuizAsync(QuizFullCreateServiceDto dto);
+        Task DeleteQuizAsync(int quizId);
+        Task<QuizResponseServiceDto> UpdateFullQuizAsync(int quizId, QuizFullUpdateServiceDto dto);
 
     }
 }

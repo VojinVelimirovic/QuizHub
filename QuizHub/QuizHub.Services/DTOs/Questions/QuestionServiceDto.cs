@@ -7,6 +7,7 @@ namespace QuizHub.Services.DTOs.Questions
         public int Id { get; set; }
         public string Text { get; set; } = null!;
         public string QuestionType { get; set; } = "SingleChoice";
+        public string? TextAnswer { get; set; }
         public List<AnswerOptionServiceDto> AnswerOptions { get; set; } = new List<AnswerOptionServiceDto>();
     }
 }

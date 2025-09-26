@@ -17,6 +17,7 @@ namespace QuizHub.Data.Models
         public Category Category { get; set; } = null!;
         public ICollection<Question> Questions { get; set; } = new List<Question>();
         public ICollection<QuizResult> QuizResults { get; set; } = new List<QuizResult>();
+        public bool IsActive { get; set; } = true;
     }
 
 }

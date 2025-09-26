@@ -69,6 +69,43 @@
   },
   {
     "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
+    "Method": "Delete",
+    "RelativePath": "api/Quizzes/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
+    "Method": "PatchFull",
+    "RelativePath": "api/Quizzes/{id}/full",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "QuizHub.Api.DTOs.Quizzes.QuizFullUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
     "Method": "GetLeaderboard",
     "RelativePath": "api/Quizzes/{id}/leaderboard",
     "HttpMethod": "GET",

@@ -19,6 +19,7 @@ namespace QuizHub.Data.Models
         public int Id { get; set; }
         public int QuizId { get; set; }
         public string Text { get; set; } = null!;
+        public bool IsActive { get; set; } = true;
         public QuestionType Type { get; set; }
         public Quiz Quiz { get; set; } = null!;
         public string? TextAnswer { get; set; }

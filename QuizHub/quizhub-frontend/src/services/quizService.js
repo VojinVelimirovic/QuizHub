@@ -79,3 +79,17 @@ export const getQuizLeaderboard = async (quizId, top = 10, timeFilter = "all") =
     throw err;
   }
 };
+
+export const deleteQuiz = async (id, token) => {
+  const response = await axios.delete(`${API_URL}/${id}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {}
+  });
+  return response.data;
+};
+
+export const updateFullQuiz = async (id, quiz, token) => {
+  const response = await axios.patch(`${API_URL}/${id}/full`, quiz, {
+    headers: token ? { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } : {}
+  });
+  return response.data;
+};
