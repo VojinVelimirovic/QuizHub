@@ -297,10 +297,24 @@
   padding-bottom: 2rem;
   border-bottom: 2px solid var(--background-color);
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.result-summary h3 {
+  width: 100%;
+  margin: 0 0 1rem 0;
+  color: var(--primary-color);
+  font-size: 1.5rem;
 }
 
 .score-display {
-  margin: 2rem 0;
+  margin: 1rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .score-circle {
@@ -313,35 +327,54 @@
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
-  margin: 0 auto;
 }
 
 .score-percentage {
   font-size: 2.5rem;
   font-weight: bold;
+  line-height: 1;
 }
 
 .score-text {
   font-size: 0.9rem;
   opacity: 0.9;
+  margin-top: 0.5rem;
 }
 
 .result-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin-top: 1rem;
+  width: 100%;
+  max-width: 300px;
 }
 
 .result-details p {
   text-align: center;
   margin: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.result-details p:last-child {
+  border-bottom: none;
+}
+
+.result-details p strong {
+  text-align: left;
+}
+
+.result-details p span:not(strong) {
+  text-align: right;
 }
 
 .question-results {
   margin-bottom: 2rem;
   flex: 1;
-  min-height: 50vw;
+  min-height: 30vw;
   overflow-y: auto;
   padding-right: 0.5rem;
 }

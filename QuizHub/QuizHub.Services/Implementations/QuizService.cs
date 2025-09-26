@@ -244,7 +244,7 @@ namespace QuizHub.Services.Implementations
 
                     var correctOptionIds = question.AnswerOptions.Where(a => a.IsCorrect).Select(a => a.Id).ToList();
                     var correctTextAnswer = question.Type == QuestionType.FillInTheBlank
-                        ? question.AnswerOptions.FirstOrDefault(a => a.IsCorrect)?.Text
+                        ? question.TextAnswer
                         : null;
 
                     bool isCorrect = false;

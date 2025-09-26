@@ -70,6 +70,10 @@ export default function ProfilePage() {
   };
 
   const displayCorrectAnswers = (qResult) => {
+  if (qResult.correctTextAnswer !== undefined && qResult.correctTextAnswer !== null) {
+        return qResult.correctTextAnswer || 'N/A';
+      }
+
     if (qResult.correctAnswerTexts && qResult.correctAnswerTexts.length > 0) {
       return qResult.correctAnswerTexts.join(', ');
     }
@@ -103,36 +107,35 @@ export default function ProfilePage() {
                 </div>
 
                 {expandedResultId === resultId && (
-                  <div className="result-details">
-                    <p><strong>Duration:</strong> {formatDuration(result.duration)}</p>
+  <div className="result-details">
+    <p><strong>Duration:</strong> {formatDuration(result.duration)}</p>
+    <div className="questions-review">
+      {result.questionResults.map((qResult, index) => {
+        const correct = qResult.correctAnswerIds || [];
+        return (
+          <div key={qResult.questionId} className={`question-result ${qResult.isCorrect ? 'correct' : 'incorrect'}`}>
+            <p><strong>Q{index + 1}:</strong> {qResult.questionText}</p>
+            <p><strong>Your answer:</strong> {displayUserAnswer(qResult)}</p>
+            <p><strong>Correct answer(s):</strong> {displayCorrectAnswers(qResult)}</p>
+          </div>
+        );
+      })}
+    </div>
 
-                    <div className="questions-review">
-                      {result.questionResults.map((qResult, index) => {
-                        const correct = qResult.correctAnswerIds || [];
-                        return (
-                          <div key={qResult.questionId} className={`question-result ${qResult.isCorrect ? 'correct' : 'incorrect'}`}>
-                            <p><strong>Q{index + 1}:</strong> {qResult.questionText}</p>
-                            <p><strong>Your answer:</strong> {displayUserAnswer(qResult)}</p>
-                            <p><strong>Correct answer(s):</strong> {displayCorrectAnswers(qResult)}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <div className="progression-graph">
-                      <h4>Progression</h4>
-                      <ResponsiveContainer width="100%" height={200}>
-                        <LineChart data={getProgressionDataUpToAttempt(result.quizId, result.completedAt)}>
-                          <XAxis dataKey="attempt" label={{ value: 'Attempt', position: 'insideBottomRight', offset: -5 }} />
-                          <YAxis label={{ value: 'Score %', angle: -90, position: 'insideLeft' }} />
-                          <Tooltip />
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <Line type="monotone" dataKey="score" stroke="#8884d8" />
-                        </LineChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </div>
-                )}
+    <div className="progression-graph">
+      <h4>Progression</h4>
+      <ResponsiveContainer width="100%" height={200}>
+        <LineChart data={getProgressionDataUpToAttempt(result.quizId, result.completedAt)}>
+          <XAxis dataKey="attempt" label={{ value: 'Attempt', position: 'insideBottomRight', offset: -5 }} />
+          <YAxis label={{ value: 'Score %', angle: -90, position: 'insideLeft' }} />
+          <Tooltip />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Line type="monotone" dataKey="score" stroke="#8884d8" />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  </div>
+)}
               </div>
             );
           })}

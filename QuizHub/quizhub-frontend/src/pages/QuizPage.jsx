@@ -105,7 +105,6 @@ export default function QuizPage() {
     };
 
     const result = await submitQuiz(submissionData);
-    console.log(result)
     setQuizResult(result);
     setIsTakingQuiz(false);
   } catch (err) {
