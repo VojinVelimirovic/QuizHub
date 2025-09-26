@@ -106,9 +106,20 @@ namespace QuizHub.Api.Controllers
 
         // GET: api/quizzes/{id}/leaderboard
         [HttpGet("{id}/leaderboard")]
-        public async Task<IActionResult> GetLeaderboard(int id, [FromQuery] int top = 10)
+        public async Task<IActionResult> GetLeaderboard(int id, [FromQuery] int top = 10, [FromQuery] string timeFilter = "all")
         {
-            var leaderboard = await _quizService.GetQuizLeaderboardAsync(id, top);
+            // Get current user ID from claims
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ??
+                             User.FindFirst(JwtRegisteredClaimNames.Sub) ??
+                             User.FindFirst(ClaimTypes.Name);
+
+            int? currentUserId = null;
+            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
+            {
+                currentUserId = userId;
+            }
+
+            var leaderboard = await _quizService.GetQuizLeaderboardAsync(id, top, timeFilter, currentUserId);
             return Ok(leaderboard);
         }
 

@@ -12,7 +12,7 @@ namespace QuizHub.Services.Interfaces
         Task<QuizResponseServiceDto> CreateQuizAsync(QuizCreateServiceDto dto);
         Task<QuizResultResponseServiceDto> SubmitQuizAsync(int userId, QuizResultCreateServiceDto dto);
         Task<List<QuizResultResponseServiceDto>> GetUserResultsAsync(int userId);
-        Task<List<QuizResultResponseServiceDto>> GetQuizLeaderboardAsync(int quizId, int top = 10);
+        Task<List<LeaderboardEntryDto>> GetQuizLeaderboardAsync(int quizId, int top = 10, string timefilter = "all", int? currentUserId = null);
         Task<QuizResponseServiceDto> CreateFullQuizAsync(QuizFullCreateServiceDto dto);
 
     }

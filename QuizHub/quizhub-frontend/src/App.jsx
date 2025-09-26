@@ -7,6 +7,7 @@ import CreateQuizPage from "./pages/CreateQuizPage";
 import { AuthContext } from "./context/AuthContext";
 import QuizPage from "./pages/QuizPage";
 import ProfilePage from "./pages/ProfilePage";
+import LeaderboardPage from "./pages/LeaderboardPage"; // Add this import
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -28,6 +29,10 @@ function App() {
         <Route
           path="/profile"
           element={user ? <ProfilePage/> : <Navigate to="/login"/>}
+        />
+        <Route
+          path="/leaderboard"
+          element={user ? <LeaderboardPage /> : <Navigate to="/login" />}
         />
         <Route
           path="/create-quiz"

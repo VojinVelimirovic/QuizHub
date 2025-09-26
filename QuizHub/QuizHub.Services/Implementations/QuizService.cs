@@ -273,36 +273,45 @@ namespace QuizHub.Services.Implementations
         }
 
 
-        public async Task<List<QuizResultResponseServiceDto>> GetQuizLeaderboardAsync(int quizId, int top = 10)
+        public async Task<List<LeaderboardEntryDto>> GetQuizLeaderboardAsync(int quizId, int top = 10, string timeFilter = "all", int? currentUserId = null)
         {
-            var results = await _context.QuizResults
+            var query = _context.QuizResults
                 .Include(r => r.User)
                 .Include(r => r.Quiz)
-                .Where(r => r.QuizId == quizId)
+                .Where(r => r.QuizId == quizId);
+            query = timeFilter.ToLower() switch
+            {
+                "day" => query.Where(r => r.CompletedAt >= DateTime.UtcNow.AddDays(-1)),
+                "week" => query.Where(r => r.CompletedAt >= DateTime.UtcNow.AddDays(-7)),
+                "month" => query.Where(r => r.CompletedAt >= DateTime.UtcNow.AddDays(-30)),
+                _ => query
+            };
+
+            var results = await query
                 .OrderByDescending(r => r.Score)
+                .ThenBy(r => r.Duration)
                 .ThenBy(r => r.CompletedAt)
                 .Take(top)
-                .ToListAsync();
-
-            var leaderboard = new List<QuizResultResponseServiceDto>();
-
-            foreach (var result in results)
-            {
-                leaderboard.Add(new QuizResultResponseServiceDto
+                .Select(r => new LeaderboardEntryDto
                 {
-                    QuizId = result.QuizId,
-                    QuizTitle = result.Quiz.Title,
-                    TotalQuestions = result.Quiz.Questions.Count,
-                    CorrectAnswers = result.Score,
-                    ScorePercentage = result.Percentage,
-                    QuestionResults = new List<QuestionResultServiceDto>(),
-                    CompletedAt = result.CompletedAt,
-                    Duration = result.Duration
-                });
+                    Username = r.User.Username,
+                    CorrectAnswers = r.Score,
+                    TotalQuestions = r.Quiz.Questions.Count,
+                    ScorePercentage = r.Percentage,
+                    CompletedAt = r.CompletedAt,
+                    Duration = r.Duration,
+                    IsCurrentUser = currentUserId.HasValue && r.UserId == currentUserId.Value
+                })
+                .ToListAsync();
+            for (int i = 0; i < results.Count; i++)
+            {
+                results[i].Rank = i + 1;
             }
 
-            return leaderboard;
+            return results;
         }
+
+
 
         public async Task<QuizResponseServiceDto> CreateFullQuizAsync(QuizFullCreateServiceDto dto)
         {

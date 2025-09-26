@@ -15,7 +15,7 @@
 .navbar-left {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 7px;
 }
 
 .navbar-logo {
@@ -33,6 +33,7 @@
 }
 
 .navbar .profile {
+  padding: 0px 7px;
   display: flex;
   align-items: center;
   gap: 10px;

@@ -176,6 +176,14 @@
               "format": "int32",
               "default": 10
             }
+          },
+          {
+            "name": "timeFilter",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "all"
+            }
           }
         ],
         "responses": {

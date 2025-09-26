@@ -43,7 +43,6 @@ export const submitQuiz = async (submissionData) => {
   } catch (error) {
     console.error('Error submitting quiz:', error);
     if (error.response?.status === 401) {
-      // Token might be invalid, redirect to login
       localStorage.removeItem('token');
       window.location.href = '/login';
     }
@@ -62,6 +61,21 @@ export const getUserResults = async () => {
     return response.data;
   } catch (err) {
     console.error('Error fetching user results:', err);
+    throw err;
+  }
+};
+
+export const getQuizLeaderboard = async (quizId, top = 10, timeFilter = "all") => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('No authentication token found');
+
+    const response = await axios.get(`${API_URL}/${quizId}/leaderboard?top=${top}&timeFilter=${timeFilter}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (err) {
+    console.error('Error fetching leaderboard:', err);
     throw err;
   }
 };
