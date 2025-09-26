@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { FiLogOut, FiPlus, FiBarChart2 } from "react-icons/fi";
+import { FiLogOut, FiPlus, FiBarChart2, FiFileText } from "react-icons/fi";
 import "../styles/Navbar.css";
 import logo from "../assets/quizhub-logo.png";
 
@@ -26,6 +26,10 @@ export default function Navbar() {
     navigate("/leaderboard");
   };
 
+  const handleResultsClick = () => {
+    navigate("/results");
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -46,9 +50,15 @@ export default function Navbar() {
         </div>
         
         {user?.role === "Admin" && (
-          <button onClick={handleCreateQuiz} className="create-quiz-btn" title="Create Quiz">
-            <FiPlus size={18} />
-          </button>
+          <>
+            <div className="results-nav" onClick={handleResultsClick}>
+              <FiFileText size={18} />
+              <span>Results</span>
+            </div>
+            <button onClick={handleCreateQuiz} className="create-quiz-btn" title="Create Quiz">
+              <FiPlus size={18} />
+            </button>
+          </>
         )}
       </div>
       <button onClick={handleLogout} className="logout-btn" title="Logout">

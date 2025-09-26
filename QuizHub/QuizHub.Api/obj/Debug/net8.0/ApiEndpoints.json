@@ -132,6 +132,16 @@
   },
   {
     "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
+    "Method": "GetAllResults",
+    "RelativePath": "api/Quizzes/all-results",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
     "Method": "CreateFullQuiz",
     "RelativePath": "api/Quizzes/full",
     "HttpMethod": "POST",

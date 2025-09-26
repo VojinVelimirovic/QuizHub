@@ -29,29 +29,41 @@ export default function ProfilePage() {
   };
 
   const getProgressionDataUpToAttempt = (quizId, currentCompletedAt) => {
-  return results
-    .filter(r => r.quizId === quizId)
-    .filter(r => new Date(r.completedAt) <= new Date(currentCompletedAt))
-    .sort((a,b) => new Date(a.completedAt) - new Date(b.completedAt))
-    .map((r, index) => ({
-      attempt: index + 1,
-      score: Math.round(r.scorePercentage),
-      completedAt: new Date(r.completedAt).toLocaleDateString(),
-      isCurrent: r.completedAt === currentCompletedAt
-    }));
-};
+    return results
+      .filter(r => r.quizId === quizId)
+      .filter(r => new Date(r.completedAt) <= new Date(currentCompletedAt))
+      .sort((a,b) => new Date(a.completedAt) - new Date(b.completedAt))
+      .map((r, index) => ({
+        attempt: index + 1,
+        score: Math.round(r.scorePercentage),
+        completedAt: new Date(r.completedAt).toLocaleDateString(),
+        isCurrent: r.completedAt === currentCompletedAt
+      }));
+  };
 
   const formatDuration = (durationString) => {
-      const [hours, minutes, seconds] = durationString.split(':').map(Number);
-      
-      if (hours > 0) {
-        return `${hours}h ${minutes}m ${seconds}s`;
-      } else if (minutes > 0) {
-        return `${minutes}m ${seconds}s`;
-      } else {
-        return `${seconds}s`;
-      }
-    };
+    const [hours, minutes, seconds] = durationString.split(':').map(Number);
+    
+    if (hours > 0) {
+      return `${hours}h ${minutes}m ${seconds}s`;
+    } else if (minutes > 0) {
+      return `${minutes}m ${seconds}s`;
+    } else {
+      return `${seconds}s`;
+    }
+  };
+
+  const formatLocalTime = (utcDate) => {
+    const date = new Date(utcDate);
+    date.setHours(date.getHours() + 2);
+    return date.toLocaleString('en-GB', {
+      day: '2-digit',
+      month: '2-digit', 
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
 
   const displayUserAnswer = (qResult) => {
     if (qResult.userTextAnswer !== undefined && qResult.userTextAnswer !== null) {
@@ -70,9 +82,9 @@ export default function ProfilePage() {
   };
 
   const displayCorrectAnswers = (qResult) => {
-  if (qResult.correctTextAnswer !== undefined && qResult.correctTextAnswer !== null) {
-        return qResult.correctTextAnswer || 'N/A';
-      }
+    if (qResult.correctTextAnswer !== undefined && qResult.correctTextAnswer !== null) {
+      return qResult.correctTextAnswer || 'N/A';
+    }
 
     if (qResult.correctAnswerTexts && qResult.correctAnswerTexts.length > 0) {
       return qResult.correctAnswerTexts.join(', ');
@@ -100,42 +112,42 @@ export default function ProfilePage() {
                   <p>
                     Score: {result.correctAnswers} / {result.totalQuestions} ({Math.round(result.scorePercentage)}%)
                   </p>
-                  <p>Completed: {new Date(result.completedAt).toLocaleString()}</p>
+                  <p>Completed: {formatLocalTime(result.completedAt)}</p>
                   <button className="expand-btn">
                     {expandedResultId === resultId ? 'Hide Details' : 'View Details'}
                   </button>
                 </div>
 
                 {expandedResultId === resultId && (
-  <div className="result-details">
-    <p><strong>Duration:</strong> {formatDuration(result.duration)}</p>
-    <div className="questions-review">
-      {result.questionResults.map((qResult, index) => {
-        const correct = qResult.correctAnswerIds || [];
-        return (
-          <div key={qResult.questionId} className={`question-result ${qResult.isCorrect ? 'correct' : 'incorrect'}`}>
-            <p><strong>Q{index + 1}:</strong> {qResult.questionText}</p>
-            <p><strong>Your answer:</strong> {displayUserAnswer(qResult)}</p>
-            <p><strong>Correct answer(s):</strong> {displayCorrectAnswers(qResult)}</p>
-          </div>
-        );
-      })}
-    </div>
+                  <div className="result-details">
+                    <p><strong>Duration:</strong> {formatDuration(result.duration)}</p>
+                    <div className="questions-review">
+                      {result.questionResults.map((qResult, index) => {
+                        const correct = qResult.correctAnswerIds || [];
+                        return (
+                          <div key={qResult.questionId} className={`question-result ${qResult.isCorrect ? 'correct' : 'incorrect'}`}>
+                            <p><strong>Q{index + 1}:</strong> {qResult.questionText}</p>
+                            <p><strong>Your answer:</strong> {displayUserAnswer(qResult)}</p>
+                            <p><strong>Correct answer(s):</strong> {displayCorrectAnswers(qResult)}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
 
-    <div className="progression-graph">
-      <h4>Progression</h4>
-      <ResponsiveContainer width="100%" height={200}>
-        <LineChart data={getProgressionDataUpToAttempt(result.quizId, result.completedAt)}>
-          <XAxis dataKey="attempt" label={{ value: 'Attempt', position: 'insideBottomRight', offset: -5 }} />
-          <YAxis label={{ value: 'Score %', angle: -90, position: 'insideLeft' }} />
-          <Tooltip />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Line type="monotone" dataKey="score" stroke="#8884d8" />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
-  </div>
-)}
+                    <div className="progression-graph">
+                      <h4>Progression</h4>
+                      <ResponsiveContainer width="100%" height={200}>
+                        <LineChart data={getProgressionDataUpToAttempt(result.quizId, result.completedAt)}>
+                          <XAxis dataKey="attempt" label={{ value: 'Attempt', position: 'insideBottomRight', offset: -5 }} />
+                          <YAxis label={{ value: 'Score %', angle: -90, position: 'insideLeft' }} />
+                          <Tooltip />
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <Line type="monotone" dataKey="score" stroke="#8884d8" />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                )}
               </div>
             );
           })}

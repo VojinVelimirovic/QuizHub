@@ -70,3 +70,21 @@
 .navbar button:hover {
   background-color: var(--secondary-color);
 }
+
+.results-nav {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.results-nav:hover {
+  background-color: var(--background-color);
+}
+
+.results-nav span {
+  font-size: 0.9rem;
+}

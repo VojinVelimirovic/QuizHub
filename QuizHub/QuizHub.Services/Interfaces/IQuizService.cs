@@ -17,5 +17,7 @@ namespace QuizHub.Services.Interfaces
         Task DeleteQuizAsync(int quizId);
         Task<QuizResponseServiceDto> UpdateFullQuizAsync(int quizId, QuizFullUpdateServiceDto dto);
 
+        Task<List<AllQuizResultsServiceDto>> GetAllQuizResultsAsync();
+
     }
 }

@@ -93,3 +93,11 @@ export const updateFullQuiz = async (id, quiz, token) => {
   });
   return response.data;
 };
+
+export const getAllResults = async () => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${API_URL}/all-results`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return response.data;
+};

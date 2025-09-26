@@ -287,6 +287,18 @@
         }
       }
     },
+    "/api/Quizzes/all-results": {
+      "get": {
+        "tags": [
+          "Quizzes"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Users/register": {
       "post": {
         "tags": [

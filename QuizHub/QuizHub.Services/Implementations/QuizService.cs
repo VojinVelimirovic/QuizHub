@@ -589,5 +589,29 @@ namespace QuizHub.Services.Implementations
             }
         }
 
+        public async Task<List<AllQuizResultsServiceDto>> GetAllQuizResultsAsync()
+        {
+            var results = await _context.QuizResults
+                .Include(r => r.Quiz)
+                    .ThenInclude(q => q.Questions.Where(q => q.IsActive))
+                .Include(r => r.User)
+                .Where(r => r.Quiz.IsActive)
+                .OrderByDescending(r => r.CompletedAt)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return results.Select(r => new AllQuizResultsServiceDto
+            {
+                QuizId = r.QuizId,
+                QuizTitle = r.Quiz.Title,
+                UserId = r.UserId,
+                Username = r.User.Username,
+                Score = r.Score,
+                TotalQuestions = r.Quiz.Questions.Count,
+                ScorePercentage = r.Percentage,
+                CompletedAt = r.CompletedAt,
+                Duration = r.Duration
+            }).ToList();
+        }
     }
 }

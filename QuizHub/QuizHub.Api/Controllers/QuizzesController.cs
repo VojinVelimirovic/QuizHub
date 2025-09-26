@@ -215,5 +215,21 @@ namespace QuizHub.Api.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        // GET api/quizzes/all-results
+        [Authorize(Roles = "Admin")]
+        [HttpGet("all-results")]
+        public async Task<IActionResult> GetAllResults()
+        {
+            try
+            {
+                var results = await _quizService.GetAllQuizResultsAsync();
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

@@ -293,32 +293,33 @@
 
 .result-summary {
   text-align: center;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
   border-bottom: 2px solid var(--background-color);
   flex-shrink: 0;
   display: flex;
+  max-height: 300px;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
 }
 
 .result-summary h3 {
-  width: 100%;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.5rem 0;
   color: var(--primary-color);
   font-size: 1.5rem;
+  width: 100%;
+  text-align: center;
 }
 
 .score-display {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .score-circle {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -332,49 +333,28 @@
 .score-percentage {
   font-size: 2.5rem;
   font-weight: bold;
-  line-height: 1;
 }
 
 .score-text {
   font-size: 0.9rem;
   opacity: 0.9;
-  margin-top: 0.5rem;
 }
 
 .result-details {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   width: 100%;
-  max-width: 300px;
+  text-align: center;
 }
 
 .result-details p {
-  text-align: center;
-  margin: 0;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.3rem 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.result-details p:last-child {
-  border-bottom: none;
-}
-
-.result-details p strong {
-  text-align: left;
-}
-
-.result-details p span:not(strong) {
-  text-align: right;
+  margin: 0.1rem 0;
+  padding: 0;
 }
 
 .question-results {
   margin-bottom: 2rem;
   flex: 1;
-  min-height: 30vw;
+  min-height: 400px;
   overflow-y: auto;
   padding-right: 0.5rem;
 }

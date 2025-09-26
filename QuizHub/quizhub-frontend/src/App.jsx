@@ -9,6 +9,7 @@ import QuizPage from "./pages/QuizPage";
 import ProfilePage from "./pages/ProfilePage";
 import LeaderboardPage from "./pages/LeaderboardPage";
 import UpdateQuizPage from "./pages/UpdateQuizPage";
+import ResultsPage from "./pages/ResultsPage";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -29,7 +30,15 @@ function App() {
         />
         <Route
           path="/update-quiz/:id"
-          element={user ? <UpdateQuizPage /> : <Navigate to="/login" />}
+          element={
+            !user ? (
+              <Navigate to="/login" />
+            ) : user.role === "Admin" ? (
+              <UpdateQuizPage />
+            ) : (
+              <Navigate to="/quizzes" />
+            )
+          }
         />
         <Route
           path="/profile"
@@ -46,6 +55,18 @@ function App() {
               <Navigate to="/login" />
             ) : user.role === "Admin" ? (
               <CreateQuizPage />
+            ) : (
+              <Navigate to="/quizzes" />
+            )
+          }
+        />
+        <Route
+          path="/results"
+          element={
+            !user ? (
+              <Navigate to="/login" />
+            ) : user.role === "Admin" ? (
+              <ResultsPage />
             ) : (
               <Navigate to="/quizzes" />
             )
