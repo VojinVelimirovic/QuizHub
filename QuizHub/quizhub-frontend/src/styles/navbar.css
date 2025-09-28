@@ -82,7 +82,7 @@
 }
 
 .results-nav:hover {
-  background-color: var(--background-color);
+  background-color: rgba(76, 175, 80, 0.1);
 }
 
 .results-nav span {

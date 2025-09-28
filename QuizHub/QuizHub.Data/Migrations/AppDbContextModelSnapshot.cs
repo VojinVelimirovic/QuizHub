@@ -67,6 +67,148 @@ namespace QuizHub.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("QuizHub.Data.Models.LiveRoom", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CurrentQuestionIndex")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<DateTime?>("EndedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<int>("MaxPlayers")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("QuizId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoomCode")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<int>("SecondsPerQuestion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartDelaySeconds")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("StartedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizId");
+
+                    b.HasIndex("RoomCode")
+                        .IsUnique();
+
+                    b.ToTable("LiveRooms");
+                });
+
+            modelBuilder.Entity("QuizHub.Data.Models.LiveRoomAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("GotFirstBlood")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LiveRoomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("ResponseTimeSeconds")
+                        .HasColumnType("float");
+
+                    b.Property<string>("SubmittedAnswer")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("LiveRoomId", "UserId", "QuestionId")
+                        .IsUnique();
+
+                    b.ToTable("LiveRoomAnswers");
+                });
+
+            modelBuilder.Entity("QuizHub.Data.Models.LiveRoomPlayer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsReady")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("JoinedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LeftAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LiveRoomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LiveRoomId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[LeftAt] IS NULL");
+
+                    b.ToTable("LiveRoomPlayers");
+                });
+
             modelBuilder.Entity("QuizHub.Data.Models.Question", b =>
                 {
                     b.Property<int>("Id")
@@ -249,6 +391,63 @@ namespace QuizHub.Data.Migrations
                     b.Navigation("Question");
                 });
 
+            modelBuilder.Entity("QuizHub.Data.Models.LiveRoom", b =>
+                {
+                    b.HasOne("QuizHub.Data.Models.Quiz", "Quiz")
+                        .WithMany()
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Quiz");
+                });
+
+            modelBuilder.Entity("QuizHub.Data.Models.LiveRoomAnswer", b =>
+                {
+                    b.HasOne("QuizHub.Data.Models.LiveRoom", "LiveRoom")
+                        .WithMany("Answers")
+                        .HasForeignKey("LiveRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QuizHub.Data.Models.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("QuizHub.Data.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LiveRoom");
+
+                    b.Navigation("Question");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("QuizHub.Data.Models.LiveRoomPlayer", b =>
+                {
+                    b.HasOne("QuizHub.Data.Models.LiveRoom", "LiveRoom")
+                        .WithMany("Players")
+                        .HasForeignKey("LiveRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QuizHub.Data.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LiveRoom");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("QuizHub.Data.Models.Question", b =>
                 {
                     b.HasOne("QuizHub.Data.Models.Quiz", "Quiz")
@@ -311,6 +510,13 @@ namespace QuizHub.Data.Migrations
             modelBuilder.Entity("QuizHub.Data.Models.Category", b =>
                 {
                     b.Navigation("Quizzes");
+                });
+
+            modelBuilder.Entity("QuizHub.Data.Models.LiveRoom", b =>
+                {
+                    b.Navigation("Answers");
+
+                    b.Navigation("Players");
                 });
 
             modelBuilder.Entity("QuizHub.Data.Models.Question", b =>

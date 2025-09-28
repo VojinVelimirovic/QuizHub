@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿// Update your AutoMapperProfile.cs
+using AutoMapper;
 using QuizHub.Data.Models;
 using QuizHub.Services.DTOs.Categories;
+using QuizHub.Services.DTOs.LiveRoom;
 using QuizHub.Services.DTOs.Questions;
 using QuizHub.Services.DTOs.QuizResults;
 using QuizHub.Services.DTOs.Quizzes;
@@ -56,10 +58,38 @@ namespace QuizHub.Services.Mapping
             CreateMap<CategoryCreateServiceDto, Category>();
 
             CreateMap<QuestionCreateServiceDto, Question>()
-    .ForMember(dest => dest.Type, opt => opt.MapFrom(src => MapQuestionType(src.QuestionType)));
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => MapQuestionType(src.QuestionType)));
 
+            // Live Room
+            CreateMap<LiveRoom, LiveRoomDto>()
+                .ForMember(dest => dest.QuizTitle, opt => opt.MapFrom(src => src.Quiz.Title))
+                .ForMember(dest => dest.CurrentPlayers, opt => opt.MapFrom(src => src.Players.Count(p => p.LeftAt == null)))
+                .ForMember(dest => dest.StartsAt, opt => opt.MapFrom(src => src.CreatedAt.AddSeconds(src.StartDelaySeconds)))
+                .ForMember(dest => dest.HasStarted, opt => opt.MapFrom(src => src.StartedAt != null))
+                .ForMember(dest => dest.HasEnded, opt => opt.MapFrom(src => src.EndedAt != null));
 
+            CreateMap<LiveRoomPlayer, PlayerDto>()
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username));
+
+            CreateMap<LiveRoom, LiveRoomLobbyDto>()
+                .ForMember(dest => dest.QuizTitle, opt => opt.MapFrom(src => src.Quiz.Title))
+                .ForMember(dest => dest.QuizDescription, opt => opt.MapFrom(src => src.Quiz.Description))
+                .ForMember(dest => dest.Difficulty, opt => opt.MapFrom(src =>
+                    src.Quiz.Difficulty == 1 ? "Easy" :
+                    src.Quiz.Difficulty == 2 ? "Medium" : "Hard"))
+                .ForMember(dest => dest.CurrentPlayers, opt => opt.MapFrom(src => src.Players.Count(p => p.LeftAt == null)))
+                .ForMember(dest => dest.TimeUntilStart, opt => opt.MapFrom(src =>
+                    Math.Max(0, (int)(src.CreatedAt.AddSeconds(src.StartDelaySeconds) - DateTime.UtcNow).TotalSeconds)))
+                .ForMember(dest => dest.Players, opt => opt.MapFrom(src => src.Players.Where(p => p.LeftAt == null)));
+
+            CreateMap<Question, LiveRoomQuestionDto>()
+                .ForMember(dest => dest.QuestionId, opt => opt.MapFrom(src => src.Id)) // Add this line!
+                .ForMember(dest => dest.QuestionType, opt => opt.MapFrom(src => src.Type.ToString()))
+                .ForMember(dest => dest.AnswerOptions, opt => opt.MapFrom(src => src.AnswerOptions));
+
+            CreateMap<AnswerOption, AnswerOptionDto>();
         }
+
         private static QuestionType MapQuestionType(string type) => type switch
         {
             "SingleChoice" => QuestionType.SingleChoice,

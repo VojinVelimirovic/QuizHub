@@ -26,6 +26,112 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "QuizHub.Api.Controllers.LiveRoomController",
+    "Method": "CreateRoom",
+    "RelativePath": "api/liverooms",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuizHub.Services.DTOs.LiveRoom.LiveRoomCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.LiveRoomController",
+    "Method": "EndRoom",
+    "RelativePath": "api/liverooms/{roomCode}/end",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roomCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.LiveRoomController",
+    "Method": "JoinRoom",
+    "RelativePath": "api/liverooms/{roomCode}/join",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roomCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.LiveRoomController",
+    "Method": "LeaveRoom",
+    "RelativePath": "api/liverooms/{roomCode}/leave",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roomCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.LiveRoomController",
+    "Method": "GetLobby",
+    "RelativePath": "api/liverooms/{roomCode}/lobby",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roomCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.LiveRoomController",
+    "Method": "StartRoom",
+    "RelativePath": "api/liverooms/{roomCode}/start",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roomCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.LiveRoomController",
+    "Method": "GetActiveRooms",
+    "RelativePath": "api/liverooms/active",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
     "Method": "GetAll",
     "RelativePath": "api/Quizzes",

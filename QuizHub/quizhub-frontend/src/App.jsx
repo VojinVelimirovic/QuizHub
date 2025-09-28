@@ -10,6 +10,9 @@ import ProfilePage from "./pages/ProfilePage";
 import LeaderboardPage from "./pages/LeaderboardPage";
 import UpdateQuizPage from "./pages/UpdateQuizPage";
 import ResultsPage from "./pages/ResultsPage";
+import CreateRoomPage from "./pages/CreateRoomPage";
+import LiveRoomLobby from "./pages/LiveRoomLobby";
+import LiveQuizRoom from "./pages/LiveQuizRoom";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -71,6 +74,27 @@ function App() {
               <Navigate to="/quizzes" />
             )
           }
+        />
+        {/* New Live Quiz Routes */}
+        <Route
+          path="/create-room"
+          element={
+            !user ? (
+              <Navigate to="/login" />
+            ) : user.role === "Admin" ? (
+              <CreateRoomPage />
+            ) : (
+              <Navigate to="/quizzes" />
+            )
+          }
+        />
+        <Route
+          path="/live/:roomCode"
+          element={user ? <LiveRoomLobby /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/live/:roomCode/play"
+          element={user ? <LiveQuizRoom /> : <Navigate to="/login" />}
         />
         <Route
           path="*"
