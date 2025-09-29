@@ -71,18 +71,16 @@
               "RelativeToolTip": "QuizHub.Api\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-29T10:35:20.516Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-29T10:35:20.516Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "dbo.Users [Data]",
+              "Title": "dbo.Users.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/QuizHubDb/True/SqlTable/dbo.Users.sql",
-              "ToolTip": "dbo.Users [Data]",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/QuizHubDb/True/SqlTable/dbo.Users.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-09-29T10:05:00.634Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-29T10:05:00.634Z"
             },
             {
               "$type": "Document",
@@ -94,18 +92,16 @@
               "RelativeToolTip": "QuizHub.Api\\Controllers\\LiveRoomController.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAlwBMAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-29T09:35:40.194Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-29T09:35:40.194Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "dbo.LiveRooms [Data]",
+              "Title": "dbo.LiveRooms.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/QuizHubDb/True/SqlTable/dbo.LiveRooms.sql",
-              "ToolTip": "dbo.LiveRooms [Data]",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/QuizHubDb/True/SqlTable/dbo.LiveRooms.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-09-29T04:57:07.495Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-29T04:57:07.495Z"
             },
             {
               "$type": "Document",
@@ -117,28 +113,25 @@
               "RelativeToolTip": "QuizHub.Data\\Models\\LiveRoom.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-29T04:56:40.197Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-29T04:56:40.197Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "dbo.AnswerOptions [Data]",
+              "Title": "dbo.AnswerOptions.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/QuizHubDb/True/SqlTable/dbo.AnswerOptions.sql",
-              "ToolTip": "dbo.AnswerOptions [Data]",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/QuizHubDb/True/SqlTable/dbo.AnswerOptions.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-09-29T04:23:54.736Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-29T04:23:54.736Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "dbo.Questions [Data]",
+              "Title": "dbo.Questions.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/QuizHubDb/True/SqlTable/dbo.Questions.sql",
-              "ToolTip": "dbo.Questions [Data]",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/QuizHubDb/True/SqlTable/dbo.Questions.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-09-29T04:23:48.73Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-29T04:23:48.73Z"
             },
             {
               "$type": "Document",
@@ -150,8 +143,7 @@
               "RelativeToolTip": "QuizHub.Api\\Hubs\\LiveQuizHub.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T20:38:06.291Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-28T20:38:06.291Z"
             },
             {
               "$type": "Document",
@@ -163,8 +155,7 @@
               "RelativeToolTip": "QuizHub.Services\\Implementations\\LiveRoomService.cs",
               "ViewState": "AgIAAEwCAAAAAAAAAAD4vwsCAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T20:38:02.748Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-28T20:38:02.748Z"
             }
           ]
         }

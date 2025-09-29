@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import "../styles/CreateQuizPage.css";
+import QuestionCard from "../components/QuizForm/QuestionCard";
 
 export default function UpdateQuizPage() {
   const { id } = useParams();
@@ -274,63 +275,18 @@ export default function UpdateQuizPage() {
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   {questions.map((q, qIndex) => (
                     <Draggable key={q.id ?? qIndex} draggableId={`q-${qIndex}`} index={qIndex}>
-                      {provided => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="question-card">
-                          <div className="question-header">Question {qIndex + 1}</div>
-                          <button type="button" className="collapse-btn" onClick={() => toggleCollapse(qIndex)}>
-                            {q.collapsed ? "▾" : "▴"}
-                          </button>
-                          {!q.collapsed && (
-                            <>
-                              <div>
-                                <label>Question Text*</label>
-                                <input value={q.text} onChange={e => handleQuestionChange(qIndex, "text", e.target.value)} />
-                              </div>
-                              <div>
-                                <label>Type</label>
-                                <select value={q.questionType} onChange={e => handleQuestionChange(qIndex, "questionType", e.target.value)}>
-                                  <option value="SingleChoice">Single Choice</option>
-                                  <option value="MultipleChoice">Multiple Choice</option>
-                                  <option value="TrueFalse">True/False</option>
-                                  <option value="FillInTheBlank">Fill In</option>
-                                </select>
-                              </div>
-                              {q.questionType === "FillInTheBlank" ? (
-                                <div>
-                                  <label>Correct Answer*</label>
-                                  <input type="text" value={q.fillInAnswer} onChange={e => handleQuestionChange(qIndex, "fillInAnswer", e.target.value)} />
-                                </div>
-                              ) : (
-                                <div>
-                                  <h4>Answer Options</h4>
-                                  {q.questionType !== "TrueFalse" && <button type="button" onClick={() => handleAddAnswerOption(qIndex)}>+ Add Option</button>}
-                                  {q.answerOptions.map((ao, aoIndex) => (
-                                    <div key={ao.id ?? ao.tempId ?? aoIndex} className="answer-option">
-                                      <input 
-                                        value={ao.text} 
-                                        onChange={e => handleAnswerOptionChange(qIndex, aoIndex, "text", e.target.value)} 
-                                        placeholder="Option text" 
-                                        disabled={q.questionType === "TrueFalse"} 
-                                      />
-                                      <label>
-                                        Correct?
-                                        <input 
-                                          type="checkbox" 
-                                          checked={ao.isCorrect} 
-                                          onChange={e => handleAnswerOptionChange(qIndex, aoIndex, "isCorrect", e.target.checked)} 
-                                        />
-                                      </label>
-                                      {q.questionType !== "TrueFalse" && q.answerOptions.length > 1 && (
-                                        <button type="button" onClick={() => handleRemoveAnswerOption(qIndex, aoIndex)}>X</button>
-                                      )}
-                                    </div>
-                                  ))}
-                                </div>
-                              )}
-                              <button type="button" onClick={() => handleRemoveQuestion(qIndex)} className="remove-btn">Remove Question</button>
-                            </>
-                          )}
-                        </div>
+                      {(provided) => (
+                        <QuestionCard
+                          question={q}
+                          questionIndex={qIndex}
+                          dragHandleProps={provided}
+                          onQuestionChange={handleQuestionChange}
+                          onRemoveQuestion={handleRemoveQuestion}
+                          onAddAnswerOption={handleAddAnswerOption}
+                          onRemoveAnswerOption={handleRemoveAnswerOption}
+                          onAnswerOptionChange={handleAnswerOptionChange}
+                          onToggleCollapse={toggleCollapse}
+                        />
                       )}
                     </Draggable>
                   ))}
