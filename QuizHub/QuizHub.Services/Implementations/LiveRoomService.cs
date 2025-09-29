@@ -187,44 +187,6 @@ namespace QuizHub.Services.Implementations
             return MapToLobbyDto(room, userId);
         }
 
-        public async Task<LiveRoomLobbyDto> GetLobbyStatusForOthersAsync(string roomCode)
-        {
-            var room = await GetRoomByCodeAsync(roomCode);
-            return MapToLobbyDtoForOthers(room);
-        }
-
-        public async Task<LiveRoomLobbyDto> GetLobbyStatusExcludingUserAsync(string roomCode, int excludedUserId)
-        {
-            var room = await GetRoomByCodeAsync(roomCode);
-
-            var host = GetCurrentHost(room);
-
-            return new LiveRoomLobbyDto
-            {
-                RoomCode = room.RoomCode,
-                Name = room.Name,
-                QuizTitle = room.Quiz?.Title ?? string.Empty,
-                QuizDescription = room.Quiz?.Description ?? string.Empty,
-                Difficulty = MapDifficulty(room.Quiz?.Difficulty),
-                MaxPlayers = room.MaxPlayers,
-                CurrentPlayers = room.Players.Count(p => p.LeftAt == null && p.UserId != excludedUserId),
-                SecondsPerQuestion = room.SecondsPerQuestion,
-                TimeUntilStart = room.StartedAt.HasValue
-                    ? (int)(room.StartedAt.Value - DateTime.UtcNow).TotalSeconds
-                    : (int)(room.CreatedAt.AddSeconds(room.StartDelaySeconds) - DateTime.UtcNow).TotalSeconds,
-                Players = room.Players
-                    .Where(p => p.LeftAt == null && p.User != null && p.UserId != excludedUserId)
-                    .Select(p => new PlayerDto
-                    {
-                        UserId = p.UserId,
-                        Username = p.User.Username,
-                        JoinedAt = p.JoinedAt
-                    })
-                    .ToList(),
-                IsHost = host != null && host.UserId != excludedUserId && host.UserId == excludedUserId
-            };
-        }
-
         public async Task<bool> StartRoomAsync(string roomCode, int userId)
         {
             var room = await GetRoomByCodeAsync(roomCode);
@@ -465,25 +427,6 @@ namespace QuizHub.Services.Implementations
             }
 
             return true;
-        }
-
-        public async Task CleanupExpiredRoomsAsync()
-        {
-            var expiredRooms = await _context.LiveRooms
-                .Where(lr => lr.IsActive &&
-                           lr.CreatedAt.AddHours(24) < DateTime.UtcNow)
-                .ToListAsync();
-
-            foreach (var room in expiredRooms)
-            {
-                room.IsActive = false;
-                if (room.EndedAt == null)
-                {
-                    room.EndedAt = DateTime.UtcNow;
-                }
-            }
-
-            await _context.SaveChangesAsync();
         }
 
         #region Helpers

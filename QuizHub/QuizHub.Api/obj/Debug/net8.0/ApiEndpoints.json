@@ -212,14 +212,40 @@
   },
   {
     "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
+    "Method": "CreateFullQuiz",
+    "RelativePath": "api/Quizzes/full",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuizHub.Api.DTOs.Quizzes.QuizFullCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.ResultsController",
+    "Method": "GetAllResults",
+    "RelativePath": "api/Results",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuizHub.Api.Controllers.ResultsController",
     "Method": "GetLeaderboard",
-    "RelativePath": "api/Quizzes/{id}/leaderboard",
+    "RelativePath": "api/Results/leaderboard/{quizId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "quizId",
         "Type": "System.Int32",
         "IsRequired": true
       },
@@ -237,9 +263,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
-    "Method": "GetAllResults",
-    "RelativePath": "api/Quizzes/all-results",
+    "ContainingType": "QuizHub.Api.Controllers.ResultsController",
+    "Method": "GetUserResults",
+    "RelativePath": "api/Results/my-results",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -247,25 +273,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
-    "Method": "CreateFullQuiz",
-    "RelativePath": "api/Quizzes/full",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "QuizHub.Api.DTOs.Quizzes.QuizFullCreateDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
+    "ContainingType": "QuizHub.Api.Controllers.ResultsController",
     "Method": "Submit",
-    "RelativePath": "api/Quizzes/submit",
+    "RelativePath": "api/Results/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -276,16 +286,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuizHub.Api.Controllers.QuizzesController",
-    "Method": "GetUserResults",
-    "RelativePath": "api/Quizzes/user-results",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

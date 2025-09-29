@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUserResults } from "../services/quizService";
+import { getUserResults } from "../services/resultService";
 import Navbar from "../components/Navbar";
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
 import "../styles/ProfilePage.css";

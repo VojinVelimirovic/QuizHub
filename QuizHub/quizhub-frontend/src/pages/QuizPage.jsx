@@ -1,9 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getQuizById, submitQuiz } from "../services/quizService";
+import { getQuizById } from "../services/quizService";
+import { submitQuiz } from "../services/resultService";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import "../styles/QuizPage.css";
+import { QuizSubmission, QuestionAnswer } from "../models/QuizSubmission";
 
 export default function QuizPage() {
   const { id } = useParams();
@@ -88,30 +90,29 @@ export default function QuizPage() {
   };
 
   const submitAnswers = async () => {
-  try {
-    const answers = quiz.questions.map(question => {
-      const userAnswer = userAnswers[question.id] || {};
-      return {
-        questionId: question.id,
-        selectedAnswerIds: userAnswer.selectedAnswerIds || [],
-        textAnswer: userAnswer.textAnswer || null
-      };
-    });
+    try {
+      const answers = quiz.questions.map(question => {
+        const userAnswer = userAnswers[question.id] || {};
+        return new QuestionAnswer(
+          question.id,
+          userAnswer.selectedAnswerIds || [],
+          userAnswer.textAnswer || null
+        );
+      });
 
-    const submissionData = {
-      quizId: parseInt(id),
-      answers: answers,
-      durationSeconds: timeElapsed
-    };
+      const submissionData = new QuizSubmission(
+        parseInt(id),
+        answers,
+        timeElapsed
+      );
 
-    const result = await submitQuiz(submissionData);
-    setQuizResult(result);
-    setIsTakingQuiz(false);
-  } catch (err) {
-    console.error("Failed to submit quiz:", err);
-  }
-};
-
+      const result = await submitQuiz(submissionData);
+      setQuizResult(result);
+      setIsTakingQuiz(false);
+    } catch (err) {
+      console.error("Failed to submit quiz:", err);
+    }
+  };
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);

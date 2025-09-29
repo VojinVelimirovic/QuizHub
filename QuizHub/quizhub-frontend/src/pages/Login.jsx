@@ -3,6 +3,7 @@ import { login } from "../services/authService";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/main.css";
+import { LoginRequest } from "../models/User";
 
 export default function Login() {
   const { loginUser } = useContext(AuthContext);
@@ -22,7 +23,8 @@ export default function Login() {
     }
 
     try {
-      const { token, user } = await login(form);
+      const loginData = new LoginRequest(form.usernameOrEmail, form.password);
+      const { token, user } = await login(loginData);
       loginUser(user, token);
       navigate("/quizzes");
     } catch (err) {

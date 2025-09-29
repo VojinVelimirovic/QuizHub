@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import "../styles/CreateQuizPage.css";
 import QuestionCard from "../components/QuizForm/QuestionCard";
+import { Quiz } from "../models/Quiz";
 
 export default function UpdateQuizPage() {
   const { id } = useParams();
@@ -192,14 +193,13 @@ export default function UpdateQuizPage() {
       }
     }
 
-    const quizPayload = {
+    const quizPayload = Quiz.createUpdatePayload(
       title,
       description,
-      categoryId: Number(selectedCategory),
-      timeLimitMinutes: Number(timeLimit),
+      Number(selectedCategory),
+      Number(timeLimit),
       difficulty,
-      deletedAnswerIds,
-      questions: questions.map(q => ({
+      questions.map(q => ({
         id: q.id ?? null,
         text: q.text,
         questionType: q.questionType,
@@ -210,7 +210,8 @@ export default function UpdateQuizPage() {
         })),
         textAnswer: q.questionType === "FillInTheBlank" ? q.fillInAnswer : null
       })),
-    };
+      deletedAnswerIds
+    );
 
     try {
       await updateFullQuiz(id, quizPayload, token || localStorage.getItem("token"));

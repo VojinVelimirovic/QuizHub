@@ -5,6 +5,7 @@ import { getAllQuizzes } from "../services/quizService";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import "../styles/CreateRoomPage.css";
+import { LiveRoomCreateRequest } from "../models/LiveRoom";
 
 export default function CreateRoomPage() {
   const [formData, setFormData] = useState({
@@ -43,7 +44,13 @@ export default function CreateRoomPage() {
     setError('');
 
     try {
-      const payload = { ...formData, quizId: Number(formData.quizId) };
+      const payload = new LiveRoomCreateRequest(
+        formData.name,
+        Number(formData.quizId),
+        formData.maxPlayers,
+        formData.secondsPerQuestion,
+        formData.startDelaySeconds
+      );
       await liveRoomService.createRoom(payload, token);
       navigate("/quizzes");
     } catch (err) {

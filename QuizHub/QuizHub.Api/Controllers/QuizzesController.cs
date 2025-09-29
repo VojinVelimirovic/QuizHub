@@ -1,16 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuizHub.Services.DTOs.Quizzes;
-using QuizHub.Services.DTOs.QuizResults;
 using QuizHub.Services.Interfaces;
-using System.IdentityModel.Tokens.Jwt;
-using System;
-using System.Threading.Tasks;
 using QuizHub.Api.DTOs.Quizzes;
 using QuizHub.Services.DTOs.Questions;
-using QuizHub.Api.DTOs.Categories;
-using QuizHub.Services.DTOs.Categories;
 using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace QuizHub.Api.Controllers
 {
@@ -25,7 +20,6 @@ namespace QuizHub.Api.Controllers
             _quizService = quizService;
         }
 
-        // GET: api/quizzes
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -33,7 +27,6 @@ namespace QuizHub.Api.Controllers
             return Ok(quizzes);
         }
 
-        // GET: api/quizzes/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -48,7 +41,6 @@ namespace QuizHub.Api.Controllers
             }
         }
 
-        // POST: api/quizzes
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] QuizCreateServiceDto dto)
@@ -57,73 +49,6 @@ namespace QuizHub.Api.Controllers
             return Ok(quiz);
         }
 
-        // POST: api/quizzes/submit
-        [Authorize]
-        [HttpPost("submit")]
-        public async Task<IActionResult> Submit([FromBody] QuizResultCreateServiceDto dto)
-        {
-            try
-            {
-                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ??
-                                 User.FindFirst(JwtRegisteredClaimNames.Sub) ??
-                                 User.FindFirst(ClaimTypes.Name);
-
-                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
-                {
-                    return Unauthorized(new { message = "Invalid user token" });
-                }
-
-                var result = await _quizService.SubmitQuizAsync(userId, dto);
-                return Ok(result);
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound(new { message = "Quiz not found" });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
-
-        // GET: api/quizzes/user-results
-        [Authorize]
-        [HttpGet("user-results")]
-        public async Task<IActionResult> GetUserResults()
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ??
-                             User.FindFirst(JwtRegisteredClaimNames.Sub) ??
-                             User.FindFirst(ClaimTypes.Name);
-
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
-            {
-                return Unauthorized(new { message = "Invalid user token" });
-            }
-
-            var results = await _quizService.GetUserResultsAsync(userId);
-            return Ok(results);
-        }
-
-        // GET: api/quizzes/{id}/leaderboard
-        [HttpGet("{id}/leaderboard")]
-        public async Task<IActionResult> GetLeaderboard(int id, [FromQuery] int top = 10, [FromQuery] string timeFilter = "all")
-        {
-            // Get current user ID from claims
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ??
-                             User.FindFirst(JwtRegisteredClaimNames.Sub) ??
-                             User.FindFirst(ClaimTypes.Name);
-
-            int? currentUserId = null;
-            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
-            {
-                currentUserId = userId;
-            }
-
-            var leaderboard = await _quizService.GetQuizLeaderboardAsync(id, top, timeFilter, currentUserId);
-            return Ok(leaderboard);
-        }
-
-        // POST: api/quizzes/full
         [Authorize(Roles = "Admin")]
         [HttpPost("full")]
         public async Task<IActionResult> CreateFullQuiz([FromBody] QuizFullCreateDto dto)
@@ -153,7 +78,6 @@ namespace QuizHub.Api.Controllers
             return Ok(quiz);
         }
 
-        // DELETE: api/quizzes/{id}
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
@@ -173,9 +97,8 @@ namespace QuizHub.Api.Controllers
             }
         }
 
-        // PATCH: api/quizzes/{id}/full
-        [HttpPatch("{id}/full")]
         [Authorize(Roles = "Admin")]
+        [HttpPatch("{id}/full")]
         public async Task<IActionResult> PatchFull(int id, [FromBody] QuizFullUpdateDto dto)
         {
             try
@@ -209,22 +132,6 @@ namespace QuizHub.Api.Controllers
             catch (KeyNotFoundException)
             {
                 return NotFound(new { message = "Quiz not found" });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
-
-        // GET api/quizzes/all-results
-        [Authorize(Roles = "Admin")]
-        [HttpGet("all-results")]
-        public async Task<IActionResult> GetAllResults()
-        {
-            try
-            {
-                var results = await _quizService.GetAllQuizResultsAsync();
-                return Ok(results);
             }
             catch (Exception ex)
             {

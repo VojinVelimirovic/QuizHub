@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { getAllResults } from "../services/quizService";
+import { getAllResults } from "../services/resultService";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";

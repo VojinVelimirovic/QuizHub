@@ -7,9 +7,12 @@ import Navbar from "../components/Navbar";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import "../styles/CreateQuizPage.css";
 import QuestionCard from "../components/QuizForm/QuestionCard";
+import { Quiz } from "../models/Quiz";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateQuizPage() {
   const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -128,19 +131,29 @@ export default function CreateQuizPage() {
       if (q.questionType === "FillInTheBlank") { if (!q.fillInAnswer.trim()) return setError("FillIn question must have a correct text answer"); }
       else { if (!q.answerOptions.length || !q.answerOptions.some(ao => ao.isCorrect)) return setError("Each question must have at least one correct answer"); }
     }
-
-    const quiz = {
-      title, description, categoryId: selectedCategory, timeLimitMinutes: Number(timeLimit), difficulty,
-      questions: questions.map(q => ({
+    const quiz = new Quiz(
+      title,
+      description,
+      selectedCategory,
+      Number(timeLimit),
+      difficulty,
+      questions.map(q => ({
         text: q.text,
         questionType: q.questionType,
-        answerOptions: q.questionType === "FillInTheBlank" ? [{ text: q.fillInAnswer, isCorrect: true }] : q.answerOptions,
+        answerOptions: q.questionType === "FillInTheBlank" 
+          ? [{ text: q.fillInAnswer, isCorrect: true }] 
+          : q.answerOptions,
         textAnswer: q.questionType === "FillInTheBlank" ? q.fillInAnswer : null
       }))
-    };
+    );
 
-    try {await createFullQuiz(quiz, token); alert("Quiz created successfully!"); setTitle(""); setDescription(""); setSelectedCategory(""); setTimeLimit(""); setDifficulty("Easy"); setQuestions([]); setError(""); }
-    catch (err) { setError(err.response?.data?.message || "Failed to create quiz"); }
+    try {
+      await createFullQuiz(quiz, token); 
+      alert("Quiz created successfully!"); 
+      navigate("/quizzes");
+    } catch (err) { 
+      setError(err.response?.data?.message || "Failed to create quiz"); 
+    }
   };
 
   return (

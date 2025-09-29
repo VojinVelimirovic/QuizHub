@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getAllQuizzes, getQuizLeaderboard } from "../services/quizService";
+import { getAllQuizzes } from "../services/quizService";
+import { getQuizLeaderboard } from "../services/resultService";
 import Navbar from "../components/Navbar";
 import "../styles/LeaderboardPage.css";
 
