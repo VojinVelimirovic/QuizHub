@@ -44,8 +44,8 @@ export default function CreateRoomPage() {
 
     try {
       const payload = { ...formData, quizId: Number(formData.quizId) };
-      await liveRoomService.createRoom(payload, token); // Send to backend
-      navigate("/quizzes"); // Go back to Quizzes page after creating
+      await liveRoomService.createRoom(payload, token);
+      navigate("/quizzes");
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create room');
     } finally {

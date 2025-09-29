@@ -14,12 +14,22 @@ export default function Register() {
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
   const handleFileChange = e => setProfileFile(e.target.files[0]);
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
     setError("");
 
     if (!form.username || !form.email || !form.password || !profileFile) {
       setError("All fields including profile picture are required");
+      return;
+    }
+
+    if (!isValidEmail(form.email)) {
+      setError("Please enter a valid email address");
       return;
     }
 

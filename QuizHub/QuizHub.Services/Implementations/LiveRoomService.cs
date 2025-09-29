@@ -15,14 +15,12 @@ namespace QuizHub.Services.Implementations
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
         private readonly Random _random;
-        private readonly ILogger<LiveRoomService> _logger;
 
-        public LiveRoomService(AppDbContext context, IMapper mapper, ILogger<LiveRoomService> logger)
+        public LiveRoomService(AppDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
             _random = new Random();
-            _logger = logger;
         }
 
         public async Task<LiveRoomDto> CreateRoomAsync(LiveRoomCreateDto dto, int hostUserId)
@@ -57,15 +55,12 @@ namespace QuizHub.Services.Implementations
                 SecondsPerQuestion = dto.SecondsPerQuestion,
                 StartDelaySeconds = dto.StartDelaySeconds,
                 CreatedAt = DateTime.UtcNow,
-                CurrentQuestionIndex = -1, // Lobby state
+                CurrentQuestionIndex = -1,
                 IsActive = true
             };
 
             _context.LiveRooms.Add(room);
             await _context.SaveChangesAsync();
-
-            // NOTE: We are NOT auto-joining the host here.
-            // If you want auto-join, call JoinRoomAsync separately from controller/hub.
 
             return MapToLiveRoomDto(room);
         }
@@ -86,7 +81,6 @@ namespace QuizHub.Services.Implementations
 
         public async Task<LiveRoomLobbyDto> JoinRoomAsync(string roomCode, int userId)
         {
-            // First, ensure user leaves any other active rooms with retry logic
             var activePlayers = await _context.LiveRoomPlayers
                 .Include(p => p.LiveRoom)
                 .Where(p => p.UserId == userId && p.LeftAt == null && p.LiveRoom.RoomCode != roomCode)
@@ -100,12 +94,9 @@ namespace QuizHub.Services.Implementations
             if (activePlayers.Any())
             {
                 await _context.SaveChangesAsync();
-
-                // Small delay to ensure database has processed the leave operation
                 await Task.Delay(100);
             }
 
-            // Load the room
             var room = await _context.LiveRooms
                 .Include(r => r.Players)
                     .ThenInclude(p => p.User)
@@ -119,17 +110,14 @@ namespace QuizHub.Services.Implementations
             if (room.EndedAt != null)
                 throw new InvalidOperationException("Room has ended");
 
-            // Check if user is already in this room
             var existingPlayer = room.Players.FirstOrDefault(p => p.UserId == userId && p.LeftAt == null);
             if (existingPlayer != null)
                 return MapToLobbyDto(room, userId);
 
-            // Check max players
             var activePlayersCount = room.Players.Count(p => p.LeftAt == null);
             if (activePlayersCount >= room.MaxPlayers)
                 throw new InvalidOperationException("Room is full");
 
-            // Add new player with retry logic
             var maxRetries = 3;
             for (int i = 0; i < maxRetries; i++)
             {
@@ -145,30 +133,26 @@ namespace QuizHub.Services.Implementations
 
                     _context.LiveRoomPlayers.Add(player);
                     await _context.SaveChangesAsync();
-                    break; // Success, break out of retry loop
+                    break;
                 }
                 catch (DbUpdateException ex)
                 {
-                    if (i == maxRetries - 1) throw; // Last retry, re-throw
+                    if (i == maxRetries - 1) throw;
 
-                    // Wait and retry
                     await Task.Delay(100 * (i + 1));
 
-                    // Reload room data
                     room = await _context.LiveRooms
                         .Include(r => r.Players)
                             .ThenInclude(p => p.User)
                         .Include(r => r.Quiz)
                         .FirstOrDefaultAsync(r => r.RoomCode == roomCode);
 
-                    // Check if user was added by another process
                     existingPlayer = room.Players.FirstOrDefault(p => p.UserId == userId && p.LeftAt == null);
                     if (existingPlayer != null)
                         return MapToLobbyDto(room, userId);
                 }
             }
 
-            // Reload room for DTO mapping
             room = await _context.LiveRooms
                 .Include(r => r.Players)
                     .ThenInclude(p => p.User)
@@ -177,9 +161,6 @@ namespace QuizHub.Services.Implementations
 
             return MapToLobbyDto(room, userId);
         }
-
-
-
 
         public async Task<bool> LeaveRoomAsync(string roomCode, int userId)
         {
@@ -216,7 +197,6 @@ namespace QuizHub.Services.Implementations
         {
             var room = await GetRoomByCodeAsync(roomCode);
 
-            // Build DTO manually but keep MapToLobbyDto usage for other logic
             var host = GetCurrentHost(room);
 
             return new LiveRoomLobbyDto
@@ -244,7 +224,6 @@ namespace QuizHub.Services.Implementations
                 IsHost = host != null && host.UserId != excludedUserId && host.UserId == excludedUserId
             };
         }
-
 
         public async Task<bool> StartRoomAsync(string roomCode, int userId)
         {
@@ -285,24 +264,23 @@ namespace QuizHub.Services.Implementations
                     .ThenInclude(q => q.AnswerOptions.Where(ao => ao.IsActive))
                 .FirstOrDefaultAsync(q => q.Id == room.QuizId);
 
-            var questions = quiz.Questions.OrderBy(q => q.Id).ToList();
+            var questions = quiz.Questions
+                .Where(q => q.IsActive)
+                .OrderBy(q => q.Id)
+                .ToList();
 
             if (room.CurrentQuestionIndex >= questions.Count)
-                throw new InvalidOperationException("Quiz has ended");
+            {
+                throw new InvalidOperationException("Quiz has ended - no more questions");
+            }
 
             var question = questions[room.CurrentQuestionIndex];
             var questionDto = _mapper.Map<LiveRoomQuestionDto>(question);
 
-            // Make sure the question ID is properly set
-            questionDto.QuestionId = question.Id; // This is crucial!
-
-            var questionStartTime = room.StartedAt.Value.AddSeconds(room.CurrentQuestionIndex * room.SecondsPerQuestion);
-            var timeElapsed = (DateTime.UtcNow - questionStartTime).TotalSeconds;
-            questionDto.TimeRemaining = Math.Max(0, room.SecondsPerQuestion - (int)timeElapsed);
+            questionDto.QuestionId = question.Id;
+            questionDto.TimeRemaining = room.SecondsPerQuestion;
             questionDto.QuestionIndex = room.CurrentQuestionIndex + 1;
             questionDto.TotalQuestions = questions.Count;
-
-            Console.WriteLine($"🟡 GetCurrentQuestionAsync - Returning question ID: {questionDto.QuestionId}, Index: {room.CurrentQuestionIndex}");
 
             return questionDto;
         }
@@ -330,7 +308,6 @@ namespace QuizHub.Services.Implementations
                     .ThenInclude(q => q.AnswerOptions.Where(ao => ao.IsActive))
                 .FirstOrDefaultAsync(q => q.Id == room.QuizId);
 
-            // Get current question by index instead of ID
             var questions = quiz.Questions.OrderBy(q => q.Id).ToList();
 
             if (room.CurrentQuestionIndex >= questions.Count)
@@ -338,21 +315,16 @@ namespace QuizHub.Services.Implementations
 
             var currentQuestion = questions[room.CurrentQuestionIndex];
 
-            // Verify the submitted question ID matches the current question
             if (currentQuestion.Id != submission.QuestionId)
             {
-                Console.WriteLine($"🔴 Question ID mismatch. Expected: {currentQuestion.Id}, Got: {submission.QuestionId}");
                 throw new InvalidOperationException("This question is not currently active");
             }
 
-            // Calculate response time using client timestamp
             var questionStartTime = room.StartedAt.Value.AddSeconds(room.CurrentQuestionIndex * room.SecondsPerQuestion);
 
-            // Convert client timestamp to DateTime
             var clientSubmitTime = DateTimeOffset.FromUnixTimeMilliseconds((long)submission.ClientSubmittedAt).UtcDateTime;
             var responseTime = (clientSubmitTime - questionStartTime).TotalSeconds;
 
-            // Ensure response time is valid
             if (responseTime < 0) responseTime = 0;
             if (responseTime > room.SecondsPerQuestion) responseTime = room.SecondsPerQuestion;
 
@@ -388,16 +360,13 @@ namespace QuizHub.Services.Implementations
             var player = room.Players.FirstOrDefault(p => p.UserId == userId && p.LeftAt == null);
             if (player != null && isCorrect)
             {
-                // Base points for correct answer
                 player.Score += 10;
 
-                // Bonus for first blood
                 if (gotFirstBlood)
                 {
                     player.Score += 5;
                 }
 
-                // Bonus for fast response (within first 1/3 of time)
                 if (responseTime <= room.SecondsPerQuestion / 3.0)
                 {
                     player.Score += 3;
@@ -447,43 +416,40 @@ namespace QuizHub.Services.Implementations
         {
             try
             {
-                Console.WriteLine($"🟡 [AdvanceQuestionAsync] Starting for room {roomCode}");
-
                 var room = await _context.LiveRooms
-                    .Include(r => r.Quiz.Questions)
+                    .Include(r => r.Quiz)
+                        .ThenInclude(q => q.Questions.Where(q => q.IsActive))
                     .FirstOrDefaultAsync(r => r.RoomCode == roomCode);
 
                 if (room == null)
                 {
-                    Console.WriteLine($"🔴 [AdvanceQuestionAsync] Room {roomCode} not found");
                     return false;
                 }
 
-                Console.WriteLine($"🟡 [AdvanceQuestionAsync] Current index: {room.CurrentQuestionIndex}, Total questions: {room.Quiz.Questions.Count}");
+                var activeQuestions = room.Quiz.Questions
+                    .Where(q => q.IsActive)
+                    .OrderBy(q => q.Id)
+                    .ToList();
 
-                // Move to next question
+                var totalActiveQuestions = activeQuestions.Count;
+
                 room.CurrentQuestionIndex++;
 
-                // Check if we have more questions
-                if (room.CurrentQuestionIndex < room.Quiz.Questions.Count)
+                if (room.CurrentQuestionIndex < totalActiveQuestions)
                 {
                     await _context.SaveChangesAsync();
-                    Console.WriteLine($"🟡 [AdvanceQuestionAsync] Advanced to question index: {room.CurrentQuestionIndex}");
                     return true;
                 }
                 else
                 {
-                    // Quiz finished
-                    room.CurrentQuestionIndex = -1; // Mark as finished
+                    room.CurrentQuestionIndex = -1;
+                    room.EndedAt = DateTime.UtcNow;
                     await _context.SaveChangesAsync();
-                    Console.WriteLine($"🟡 [AdvanceQuestionAsync] Quiz finished for room {roomCode}");
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"🔴 [AdvanceQuestionAsync] ERROR: {ex.Message}");
-                Console.WriteLine($"🔴 [AdvanceQuestionAsync] Stack trace: {ex.StackTrace}");
                 return false;
             }
         }
@@ -559,60 +525,71 @@ namespace QuizHub.Services.Implementations
         {
             try
             {
-                Console.WriteLine($"🟡 Validating answer for question {question.Id}, type: {question.Type}");
-                Console.WriteLine($"🟡 User answer: {userAnswer}, type: {userAnswer?.GetType()}");
+                if (userAnswer == null)
+                {
+                    return false;
+                }
 
                 switch (question.Type)
                 {
                     case QuestionType.SingleChoice:
                     case QuestionType.TrueFalse:
                         var answerString = userAnswer?.ToString();
-                        Console.WriteLine($"🟡 Single choice answer string: {answerString}");
+
+                        if (string.IsNullOrEmpty(answerString))
+                        {
+                            return false;
+                        }
 
                         if (int.TryParse(answerString, out var singleAnswer))
                         {
                             var isCorrect = question.AnswerOptions.Any(ao => ao.Id == singleAnswer && ao.IsCorrect);
-                            Console.WriteLine($"🟡 Single choice validation result: {isCorrect}");
                             return isCorrect;
                         }
-                        Console.WriteLine("🔴 Failed to parse single choice answer as int");
                         return false;
 
                     case QuestionType.MultipleChoice:
                         var multipleAnswerString = userAnswer?.ToString();
-                        Console.WriteLine($"🟡 Multiple choice answer string: {multipleAnswerString}");
+
+                        if (string.IsNullOrEmpty(multipleAnswerString) || multipleAnswerString == "[]")
+                        {
+                            return false;
+                        }
 
                         try
                         {
                             var multipleAnswers = JsonSerializer.Deserialize<int[]>(multipleAnswerString);
+                            if (multipleAnswers == null || multipleAnswers.Length == 0)
+                            {
+                                return false;
+                            }
+
                             var correctAnswers = question.AnswerOptions.Where(ao => ao.IsCorrect).Select(ao => ao.Id).OrderBy(id => id);
                             var result = multipleAnswers.OrderBy(id => id).SequenceEqual(correctAnswers);
-                            Console.WriteLine($"🟡 Multiple choice validation result: {result}");
                             return result;
                         }
-                        catch (JsonException ex)
+                        catch (JsonException)
                         {
-                            Console.WriteLine($"🔴 JSON deserialization error: {ex.Message}");
                             return false;
                         }
 
                     case QuestionType.FillInTheBlank:
-                        var textAnswer = userAnswer?.ToString().Trim().ToLower();
-                        Console.WriteLine($"🟡 Fill in blank answer: {textAnswer}");
-                        var fillResult = question.AnswerOptions.Any(ao =>
-                            ao.Text.Trim().ToLower() == textAnswer && ao.IsCorrect);
-                        Console.WriteLine($"🟡 Fill in blank validation result: {fillResult}");
+                        var textAnswer = userAnswer?.ToString()?.Trim().ToLower();
+
+                        if (string.IsNullOrEmpty(textAnswer))
+                        {
+                            return false;
+                        }
+
+                        var fillResult = question.TextAnswer?.ToLower() == textAnswer;
                         return fillResult;
 
                     default:
-                        Console.WriteLine("🔴 Unknown question type");
                         return false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"🔴 ValidateAnswer error: {ex.Message}");
-                Console.WriteLine($"🔴 Stack trace: {ex.StackTrace}");
                 return false;
             }
         }
@@ -732,36 +709,28 @@ namespace QuizHub.Services.Implementations
             };
         }
 
-
-
         private LiveRoomPlayer? GetCurrentHost(LiveRoom room)
         {
-            // Only consider players who haven't left
             return room.Players
                        .Where(p => p.LeftAt == null)
                        .OrderBy(p => p.JoinedAt)
                        .FirstOrDefault();
         }
 
-        // In LiveRoomService implementation
         public async Task<bool> HaveAllPlayersAnsweredAsync(string roomCode, int questionId)
         {
             var room = await GetRoomByCodeAsync(roomCode);
             var activePlayers = room.Players.Count(p => p.LeftAt == null);
 
-            // Count answers for this specific question
             var answerCount = await _context.LiveRoomAnswers
                 .Where(a => a.LiveRoomId == room.Id && a.QuestionId == questionId)
                 .Select(a => a.UserId)
                 .Distinct()
                 .CountAsync();
 
-            Console.WriteLine($"🟡 Answer check - Active players: {activePlayers}, Distinct answers for question {questionId}: {answerCount}");
-
             return activePlayers > 0 && answerCount >= activePlayers;
         }
 
         #endregion
-
     }
 }

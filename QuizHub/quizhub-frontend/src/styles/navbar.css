@@ -88,3 +88,21 @@
 .results-nav span {
   font-size: 0.9rem;
 }
+
+.leaderboard-nav {
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+  }
+
+.leaderboard-nav:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.navbar .profile:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+  border-radius: 5px;
+}

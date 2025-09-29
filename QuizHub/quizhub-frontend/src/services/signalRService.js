@@ -1,12 +1,9 @@
-// services/signalRService.js
 import * as signalR from '@microsoft/signalr';
 
 class SignalRService {
   constructor() {
     this.connection = null;
     this.roomCode = null;
-
-    // Event callbacks
     this.onPlayerJoined = null;
     this.onPlayerLeft = null;
     this.onRoomJoined = null;
@@ -25,7 +22,7 @@ class SignalRService {
     const token = localStorage.getItem('token');
 
     this.connection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:7208/liveQuizHub', {
+      .withUrl(import.meta.env.VITE_SIGNALR_URL, {
         accessTokenFactory: () => token
       })
       .withAutomaticReconnect([0, 2000, 5000, 10000])
@@ -88,7 +85,6 @@ class SignalRService {
     this.connection.onreconnected((connectionId) => {
       console.log('SignalR reconnected:', connectionId);
       this.isConnected = true;
-      // Rejoin room if we were in one
       if (this.roomCode) {
         this.joinRoom(this.roomCode);
       }
@@ -159,7 +155,7 @@ class SignalRService {
     const submission = {
       questionId: questionId,
       answer: answer,
-      clientSubmittedAt: Date.now() // Unix timestamp in milliseconds
+      clientSubmittedAt: Date.now()
     };
     
     console.log("🟡 Submitting answer:", submission);
@@ -175,9 +171,8 @@ class SignalRService {
       await this.startConnection();
     }
 
-    // if already in a different room, do not rejoin — leave first (optional)
     if (this.roomCode && this.roomCode !== roomCode) {
-      try { await this.leaveRoom(); } catch (e) { /* ignore */ }
+      try { await this.leaveRoom(); } catch (e) { }
     }
 
     if (this.roomCode !== roomCode) {
@@ -193,11 +188,9 @@ class SignalRService {
   setOnError(callback) { 
     this.onError = callback; 
   }
-  // Setters for all callbacks
   setOnLobbyStatus(callback) { 
     this.onLobbyStatus = callback; 
   }
-  // Add to your SignalRService class
 setOnReconnecting(callback) { 
   this.connection?.onreconnecting(() => {
     console.log('SignalR reconnecting...');

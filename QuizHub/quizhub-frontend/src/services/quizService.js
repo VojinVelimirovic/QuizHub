@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://localhost:7208/api/quizzes";
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/quizzes`;
 
 export const getAllQuizzes = async () => {
   const response = await axios.get(API_URL);

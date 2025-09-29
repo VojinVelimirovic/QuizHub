@@ -21,8 +21,6 @@ namespace QuizHub.Api.Controllers
             _logger = logger;
         }
 
-        private string GetUsername() => User.FindFirstValue(ClaimTypes.Name)!;
-
         /// <summary>
         /// Get all currently active rooms that haven’t started yet.
         /// </summary>

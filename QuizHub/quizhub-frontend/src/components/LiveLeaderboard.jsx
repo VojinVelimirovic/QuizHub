@@ -5,7 +5,6 @@ export default function LiveLeaderboard({ leaderboard, isCompact = false, isFina
     return <div className="leaderboard-loading">Loading leaderboard...</div>;
   }
 
-  // Handle empty leaderboard
   if (leaderboard.entries.length === 0) {
     return (
       <div className={`leaderboard ${isCompact ? 'compact' : ''}`}>
@@ -31,7 +30,6 @@ export default function LiveLeaderboard({ leaderboard, isCompact = false, isFina
               <div className="entry-details">
                 <span>Score: {entry.score}</span>
                 <span>Correct: {entry.correctAnswers}</span>
-                <span>Avg Time: {entry.averageResponseTime.toFixed(1)}s</span>
               </div>
             )}
           </div>

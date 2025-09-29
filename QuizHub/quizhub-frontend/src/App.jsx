@@ -75,7 +75,6 @@ function App() {
             )
           }
         />
-        {/* New Live Quiz Routes */}
         <Route
           path="/create-room"
           element={

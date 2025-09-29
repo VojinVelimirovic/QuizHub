@@ -56,7 +56,6 @@ namespace QuizHub.Api.Hubs
 
             await Clients.Caller.SendAsync("RoomJoined", roomCode);
 
-            // Load the room once
             var room = await _liveRoomService.GetRoomByCodeAsync(roomCode);
             var host = room.Players
                            .Where(p => p.LeftAt == null)
@@ -70,16 +69,13 @@ namespace QuizHub.Api.Hubs
 
             if (host == null)
             {
-                Console.WriteLine($"🔴 CRITICAL: No host found in room {roomCode}");
                 return;
             }
 
             var lobbyForHost = _liveRoomService.MapToLobbyDtoForCaller(room, host.UserId, true);
 
-            // Send caller their lobby
             await Clients.Caller.SendAsync("LobbyStatus", lobbyForCaller);
 
-            // Everyone except host gets the "others" view
             var otherConnections = _connections
                 .Where(kvp => kvp.Value.RoomCode == roomCode && kvp.Value.UserId != host.UserId)
                 .Select(kvp => kvp.Key)
@@ -87,7 +83,6 @@ namespace QuizHub.Api.Hubs
 
             await Clients.Clients(otherConnections).SendAsync("LobbyStatus", lobbyForOthers);
 
-            // Send host their special host view
             var hostConnection = _connections.FirstOrDefault(kvp => kvp.Value.UserId == host.UserId && kvp.Value.RoomCode == roomCode).Key;
             if (hostConnection != null && hostConnection != Context.ConnectionId)
             {
@@ -115,7 +110,6 @@ namespace QuizHub.Api.Hubs
                            .OrderBy(p => p.JoinedAt)
                            .FirstOrDefault();
 
-            // Update all remaining players with new lobby status
             var remainingConnections = _connections
                 .Where(kvp => kvp.Value.RoomCode == roomCode && kvp.Value.UserId != userId)
                 .ToList();
@@ -147,27 +141,20 @@ namespace QuizHub.Api.Hubs
 
             try
             {
-                Console.WriteLine($"🟡 SubmitAnswer received - QuestionId: {submission.QuestionId}, Answer: {submission.Answer}, ClientTime: {submission.ClientSubmittedAt}");
-
                 var success = await _liveRoomService.SubmitAnswerAsync(info.RoomCode, userId, submission);
 
-                // CRITICAL: Always send AnswerSubmitted event, regardless of correctness
                 await Clients.Caller.SendAsync("AnswerSubmitted", submission.QuestionId);
 
                 var leaderboard = await _liveRoomService.GetLiveLeaderboardAsync(info.RoomCode);
                 await Clients.Group(info.RoomCode).SendAsync("LeaderboardUpdated", leaderboard);
 
-                // Check if all players have answered and end question early
                 if (await _liveRoomService.HaveAllPlayersAnsweredAsync(info.RoomCode, submission.QuestionId))
                 {
-                    Console.WriteLine($"🟡 All players have answered question {submission.QuestionId}, ending question early");
                     await EndQuestion(info.RoomCode, submission.QuestionId);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"🔴 SubmitAnswer error: {ex.Message}");
-                Console.WriteLine($"🔴 Stack trace: {ex.StackTrace}");
                 throw new HubException($"Failed to submit answer: {ex.Message}");
             }
         }
@@ -207,45 +194,32 @@ namespace QuizHub.Api.Hubs
         {
             try
             {
-                Console.WriteLine($"🟡 [AdvanceQuestionInternal] Starting for room {roomCode}");
-
-                // Cancel any existing timer
                 if (_roomTimers.TryRemove(roomCode, out var existingTimer))
                 {
-                    Console.WriteLine($"🟡 [AdvanceQuestionInternal] Cancelling existing timer for room {roomCode}");
                     existingTimer.Cancel();
                     existingTimer.Dispose();
                 }
 
                 var question = await _liveRoomService.GetCurrentQuestionAsync(roomCode);
-                Console.WriteLine($"🟡 [AdvanceQuestionInternal] Got question: {(question != null ? $"ID {question.QuestionId}" : "NULL")}");
 
                 if (question != null)
                 {
-                    Console.WriteLine($"🟡 [AdvanceQuestionInternal] Starting question {question.QuestionId} with {question.TimeRemaining}s timer");
-
                     await Clients.Group(roomCode).SendAsync("QuestionStarted", question);
-                    Console.WriteLine($"🟡 [AdvanceQuestionInternal] QuestionStarted event sent");
 
-                    // Create new cancellation token
                     var cts = new CancellationTokenSource();
                     _roomTimers[roomCode] = cts;
 
-                    // Start timer task
                     _ = StartQuestionTimer(roomCode, question.QuestionId, question.TimeRemaining, cts.Token);
                 }
                 else
                 {
-                    Console.WriteLine($"🟡 [AdvanceQuestionInternal] No current question found, ending quiz");
                     var leaderboard = await _liveRoomService.GetLiveLeaderboardAsync(roomCode);
                     await Clients.Group(roomCode).SendAsync("QuizEnded", leaderboard);
                     _roomUsers.TryRemove(roomCode, out _);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"🔴 [AdvanceQuestionInternal] Error: {ex.Message}");
-                Console.WriteLine($"🔴 Stack trace: {ex.StackTrace}");
             }
         }
 
@@ -253,21 +227,17 @@ namespace QuizHub.Api.Hubs
         {
             try
             {
-                Console.WriteLine($"🟡 [Timer] Started for question {questionId}, waiting {timeRemaining}s");
                 await Task.Delay(timeRemaining * 1000, cancellationToken);
 
                 if (cancellationToken.IsCancellationRequested)
                 {
-                    Console.WriteLine($"🟡 [Timer] Cancelled for question {questionId}");
                     return;
                 }
 
-                Console.WriteLine($"🟡 [Timer] Expired for question {questionId}");
                 await EndQuestion(roomCode, questionId);
             }
             catch (TaskCanceledException)
             {
-                Console.WriteLine($"🟡 [Timer] Task cancelled for question {questionId}");
             }
         }
 
@@ -275,51 +245,40 @@ namespace QuizHub.Api.Hubs
         {
             try
             {
-                Console.WriteLine($"🟡 [1] EndQuestion called for room {roomCode}, question {questionId}");
-
-                // Clean up timer
                 if (_roomTimers.TryRemove(roomCode, out var timer))
                 {
                     timer.Dispose();
-                    Console.WriteLine($"🟡 [1.5] Timer cleaned up for room {roomCode}");
                 }
 
-                // Send QuestionEnded event
-                await Clients.Group(roomCode).SendAsync("QuestionEnded", questionId);
-                Console.WriteLine($"🟡 [2] QuestionEnded event sent for question {questionId}");
+                try
+                {
+                    await Clients.Group(roomCode).SendAsync("QuestionEnded", questionId);
 
-                // Get leaderboard update
-                var leaderboard = await _liveRoomService.GetLiveLeaderboardAsync(roomCode);
-                await Clients.Group(roomCode).SendAsync("LeaderboardUpdated", leaderboard);
-                Console.WriteLine($"🟡 [3] LeaderboardUpdated sent");
+                    var leaderboard = await _liveRoomService.GetLiveLeaderboardAsync(roomCode);
+                    await Clients.Group(roomCode).SendAsync("LeaderboardUpdated", leaderboard);
+                }
+                catch (ObjectDisposedException)
+                {
+                    return;
+                }
 
-                // Wait before advancing
                 await Task.Delay(3000);
-                Console.WriteLine($"🟡 [4] Delay completed, advancing question");
 
-                // Advance to next question
                 var hasMoreQuestions = await _liveRoomService.AdvanceQuestionAsync(roomCode);
-                Console.WriteLine($"🟡 [5] After AdvanceQuestionAsync - hasMoreQuestions: {hasMoreQuestions}");
 
                 if (hasMoreQuestions)
                 {
-                    Console.WriteLine($"🟡 [6] Advancing to next question in room {roomCode}");
                     await AdvanceQuestionInternal(roomCode);
                 }
                 else
                 {
-                    Console.WriteLine($"🟡 [6] No more questions, ending quiz for room {roomCode}");
                     var finalLeaderboard = await _liveRoomService.GetLiveLeaderboardAsync(roomCode);
                     await Clients.Group(roomCode).SendAsync("QuizEnded", finalLeaderboard);
                     _roomUsers.TryRemove(roomCode, out _);
                 }
-
-                Console.WriteLine($"🟡 [7] EndQuestion completed");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"🔴 [EndQuestion] ERROR: {ex.Message}");
-                Console.WriteLine($"🔴 [EndQuestion] Stack trace: {ex.StackTrace}");
             }
         }
     }

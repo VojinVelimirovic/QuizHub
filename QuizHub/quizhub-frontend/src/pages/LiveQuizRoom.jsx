@@ -11,7 +11,6 @@ export default function LiveQuizRoom() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   
-  // State
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [leaderboard, setLeaderboard] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -21,22 +20,24 @@ export default function LiveQuizRoom() {
   const [error, setError] = useState("");
   const [connectedAndJoined, setConnectedAndJoined] = useState(false);
 
-  // Refs
   const timerRef = useRef(null);
   const currentQuestionRef = useRef(null);
   const isSubmittingRef = useRef(false);
   const quizStateRef = useRef(quizState);
+  const selectedAnswerRef = useRef(null);
 
-  // Keep refs in sync
   useEffect(() => {
     currentQuestionRef.current = currentQuestion;
   }, [currentQuestion]);
 
   useEffect(() => {
+    selectedAnswerRef.current = selectedAnswer;
+  }, [selectedAnswer]);
+
+  useEffect(() => {
     quizStateRef.current = quizState;
   }, [quizState]);
 
-  // Timer cleanup
   useEffect(() => {
     return () => {
       if (timerRef.current) {
@@ -45,7 +46,84 @@ export default function LiveQuizRoom() {
     };
   }, []);
 
-  // Main connection effect
+  const handleAutoSubmit = async () => {
+    const currentQ = currentQuestionRef.current;
+    
+    if (hasAnswered) {
+      return;
+    }
+    
+    if (isSubmittingRef.current) {
+      return;
+    }
+    
+    if (!currentQ) {
+      return;
+    }
+    
+    if (quizStateRef.current !== "playing") {
+      return;
+    }
+    
+    try {
+      isSubmittingRef.current = true;
+      
+      let answerToSend = selectedAnswerRef.current;
+      
+      if (currentQ.questionType === "MultipleChoice") {
+        if (!Array.isArray(answerToSend)) {
+          answerToSend = answerToSend ? [answerToSend] : [];
+        }
+        answerToSend = answerToSend.sort((a, b) => a - b);
+      } else if (currentQ.questionType === "FillInTheBlank") {
+        if (typeof answerToSend === 'string') {
+        } else if (!answerToSend) {
+          answerToSend = "";
+        }
+      } else if (typeof answerToSend === 'string' && !isNaN(answerToSend)) {
+        answerToSend = parseInt(answerToSend, 10);
+      }
+
+      await signalRService.submitAnswer(currentQ.questionId, answerToSend);
+      
+    } catch (err) {
+      isSubmittingRef.current = false;
+      
+      if (err.message.includes("Already submitted answer") || 
+          err.message.includes("No active question") ||
+          err.message.includes("Room has ended")) {
+        setHasAnswered(true);
+      }
+    }
+  };
+
+  const startTimer = (initialTime) => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    
+    setTimeRemaining(initialTime);
+    
+    timerRef.current = setInterval(() => {
+      setTimeRemaining((prev) => {
+        const newTime = prev - 1;
+        
+        if (newTime <= 0) {
+          clearInterval(timerRef.current);
+          timerRef.current = null;
+          
+          setTimeout(() => {
+            handleAutoSubmit();
+          }, 0);
+          
+          return 0;
+        }
+        return newTime;
+      });
+    }, 1000);
+  };
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -63,9 +141,6 @@ export default function LiveQuizRoom() {
       signalRService.setOnQuestionStarted((questionData) => {
         if (!isMounted) return;
         
-        console.log("🔄 Resetting UI state for new question");
-        
-        // Reset all state for new question
         setCurrentQuestion(questionData);
         
         if (questionData.questionType === "MultipleChoice") {
@@ -78,7 +153,6 @@ export default function LiveQuizRoom() {
         
         setHasAnswered(false);
         isSubmittingRef.current = false;
-        setTimeRemaining(questionData.timeRemaining);
         setQuizState("playing");
         
         startTimer(questionData.timeRemaining);
@@ -105,9 +179,7 @@ export default function LiveQuizRoom() {
         
         const currentQ = currentQuestionRef.current;
         
-        // Only process if this is for the current question and we're playing
         if (currentQ && questionId === currentQ.questionId && quizStateRef.current === "playing") {
-          console.log("✅ Answer confirmed by server");
           setHasAnswered(true);
           isSubmittingRef.current = false;
         }
@@ -154,44 +226,28 @@ export default function LiveQuizRoom() {
     };
   }, [roomCode, user, navigate]);
 
-  const startTimer = (initial) => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
-    
-    setTimeRemaining(initial);
-    timerRef.current = setInterval(() => {
-      setTimeRemaining((prev) => {
-        if (prev <= 1) {
-          clearInterval(timerRef.current);
-          timerRef.current = null;
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-  };
-
   const handleAnswerSelect = (answerId) => {
     if (hasAnswered || isSubmittingRef.current) return;
 
     if (currentQuestion?.questionType === "MultipleChoice") {
       setSelectedAnswer(prev => {
         const currentAnswers = prev || [];
+        const newAnswers = currentAnswers.includes(answerId) 
+          ? currentAnswers.filter(id => id !== answerId)
+          : [...currentAnswers, answerId];
         
-        if (currentAnswers.includes(answerId)) {
-          return currentAnswers.filter(id => id !== answerId);
-        } else {
-          return [...currentAnswers, answerId];
-        }
+        selectedAnswerRef.current = newAnswers;
+        return newAnswers;
       });
     } else {
+      selectedAnswerRef.current = answerId;
       setSelectedAnswer(answerId);
     }
   };
 
   const handleTextAnswerChange = (text) => {
     if (hasAnswered || isSubmittingRef.current) return;
+    selectedAnswerRef.current = text;
     setSelectedAnswer(text);
   };
 
@@ -226,13 +282,10 @@ export default function LiveQuizRoom() {
       } else if (typeof selectedAnswer === 'string' && !isNaN(selectedAnswer)) {
         answerToSend = parseInt(selectedAnswer, 10);
       }
-      
+
       await signalRService.submitAnswer(currentQuestion.questionId, answerToSend);
       
-      // Don't set hasAnswered here - wait for server confirmation
-      
     } catch (err) {
-      console.error("Submit answer failed:", err);
       isSubmittingRef.current = false;
       
       if (err.message.includes("Already submitted answer")) {
@@ -247,7 +300,6 @@ export default function LiveQuizRoom() {
     try {
       await signalRService.leaveRoom();
     } catch (e) {
-      console.warn("Error leaving room:", e);
     }
     navigate("/quizzes");
   };
@@ -258,7 +310,7 @@ export default function LiveQuizRoom() {
     setQuizState("loading");
     
     setTimeout(() => {
-      signalRService.ensureConnectedAndJoin(roomCode).catch(console.error);
+      signalRService.ensureConnectedAndJoin(roomCode).catch();
     }, 500);
   };
 
@@ -324,14 +376,16 @@ export default function LiveQuizRoom() {
     return (
       <div className="live-quiz-room-page">
         <Navbar />
-        <div className="quiz-container">
-          <div className="error-state">
-            <h3>Connection Error</h3>
-            <p>{error}</p>
-            <button onClick={handleRetryConnection} className="retry-btn">
-              Retry Connection
-            </button>
-            <button onClick={() => navigate("/quizzes")}>Back to Quizzes</button>
+        <div className="page-scroll-container">
+          <div className="quiz-container">
+            <div className="error-state">
+              <h3>Connection Error</h3>
+              <p>{error}</p>
+              <button onClick={handleRetryConnection} className="retry-btn">
+                Retry Connection
+              </button>
+              <button onClick={() => navigate("/quizzes")}>Back to Quizzes</button>
+            </div>
           </div>
         </div>
       </div>
@@ -342,11 +396,13 @@ export default function LiveQuizRoom() {
     return (
       <div className="live-quiz-room-page">
         <Navbar />
-        <div className="quiz-container">
-          <div style={{ padding: 20, textAlign: 'center' }}>
-            <h3>Connecting to live quiz…</h3>
-            <p>Waiting for question to start...</p>
-            <div className="loading-spinner"></div>
+        <div className="page-scroll-container">
+          <div className="quiz-container">
+            <div className="loading-state">
+              <h3>Connecting to live quiz…</h3>
+              <p>Waiting for question to start...</p>
+              <div className="loading-spinner"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -356,60 +412,62 @@ export default function LiveQuizRoom() {
   return (
     <div className="live-quiz-room-page">
       <Navbar />
-      <div className="quiz-container">
-        <div className="quiz-header">
-          <h2>Live Quiz</h2>
-          <div className="quiz-info">
-            <span>Room: {roomCode}</span>
-            <span>Question: {currentQuestion?.questionIndex}/{currentQuestion?.totalQuestions}</span>
-            <span>Time: {timeRemaining}s</span>
+      <div className="page-scroll-container">
+        <div className="quiz-container">
+          <div className="quiz-header">
+            <h2>Live Quiz</h2>
+            <div className="quiz-info">
+              <span>Room: {roomCode}</span>
+              <span>Question: {currentQuestion?.questionIndex}/{currentQuestion?.totalQuestions}</span>
+              <span>Time: {timeRemaining}s</span>
+            </div>
           </div>
-        </div>
 
-        <div className="quiz-content">
-          {quizState === "playing" && currentQuestion && (
-            <div className="question-section">
-              <div className="question-card">
-                <h3>{currentQuestion.text}</h3>
-                <div className="question-type-indicator">
-                  Type: {currentQuestion.questionType}
-                </div>
-                
-                {renderAnswerOptions()}
+          <div className="quiz-content">
+            {quizState === "playing" && currentQuestion && (
+              <div className="question-section">
+                <div className="question-card">
+                  <h3>{currentQuestion.text}</h3>
+                  <div className="question-type-indicator">
+                    Type: {currentQuestion.questionType}
+                  </div>
+                  
+                  {renderAnswerOptions()}
 
-                <div className="question-actions">
-                  <button 
-                    onClick={handleSubmitAnswer} 
-                    disabled={!isAnswerValid() || hasAnswered || isSubmittingRef.current} 
-                    className="submit-btn"
-                  >
-                    {isSubmittingRef.current ? "Submitting..." : hasAnswered ? "Answer Submitted" : "Submit Answer"}
-                  </button>
-                  {hasAnswered && <div className="waiting-message">Waiting for other players...</div>}
+                  <div className="question-actions">
+                    <button 
+                      onClick={handleSubmitAnswer} 
+                      disabled={!isAnswerValid() || hasAnswered || isSubmittingRef.current} 
+                      className="submit-btn"
+                    >
+                      {isSubmittingRef.current ? "Submitting..." : hasAnswered ? "Answer Submitted" : "Submit Answer"}
+                    </button>
+                    {hasAnswered && <div className="waiting-message">Waiting for other players...</div>}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {quizState === "between" && leaderboard && (
-            <div className="between-questions">
-              <h3>Question Complete!</h3>
-              <LiveLeaderboard leaderboard={leaderboard} />
-              <p>Next question starting soon...</p>
-            </div>
-          )}
+            {quizState === "between" && leaderboard && (
+              <div className="between-questions">
+                <h3>Question Complete!</h3>
+                <LiveLeaderboard leaderboard={leaderboard} />
+                <p>Next question starting soon...</p>
+              </div>
+            )}
 
-          {quizState === "ended" && leaderboard && (
-            <div className="quiz-ended">
-              <h3>Quiz Finished!</h3>
-              <LiveLeaderboard leaderboard={leaderboard} isFinal />
-              <button onClick={handleLeaveRoom} className="leave-btn">Return to Quizzes</button>
-            </div>
-          )}
-        </div>
+            {quizState === "ended" && leaderboard && (
+              <div className="quiz-ended">
+                <h3>Quiz Finished!</h3>
+                <LiveLeaderboard leaderboard={leaderboard} isFinal />
+                <button onClick={handleLeaveRoom} className="leave-btn">Return to Quizzes</button>
+              </div>
+            )}
+          </div>
 
-        <div className="sidebar">
-          <LiveLeaderboard leaderboard={leaderboard} isCompact />
+          <div className="sidebar">
+            <LiveLeaderboard leaderboard={leaderboard} isCompact />
+          </div>
         </div>
       </div>
     </div>
